@@ -48,6 +48,3 @@ void tower::lifeBrick()
     }
 }
 
-void tower::setLife(int life) {
-    this->life = life;
-}

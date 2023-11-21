@@ -19,10 +19,15 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
     this->y = y;
     m_color = color;
 
-    speed = 0;
+    
     shapeType = NoShape;
     orientationX = 0;
     orientationY = 0;
+    damage = 0;
+    speed = (0);
+    attackCooldown = 2.0f;
+    attackTimer = 0.0f;
+    life = 0;
 
     shape = new RectangleShape(sf::Vector2f(w, h));
     if (w == h)
@@ -49,10 +54,15 @@ gameObject::gameObject(float r, float x, float y, sf::Color color)
     this->y = y;
     this->r = r;
     m_color = color;
-    speed = 0;
+
     orientationX = 0;
     orientationY = 0;
     shapeType = Circle;
+    damage = 0;
+    speed = (0);
+    attackCooldown = 2.0f;
+    attackTimer = 0.0f;
+    life = 0;
 
     shape = new CircleShape(r);
     shape->setPosition(x, y);
@@ -343,3 +353,16 @@ void gameObject::drawShape(RenderWindow& window)
         window.draw(*shape);
     }
 };
+
+void gameObject::setDamage(int damage)
+{
+    this->damage = damage;
+}
+
+void gameObject::setLife(int life) {
+    this->life = life;
+}
+
+void gameObject::setLife(int life) {
+    this->life = life;
+}
