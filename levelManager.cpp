@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "windowManager.h"
+
 LevelManager::LevelManager() {
 
     std::vector<std::vector<Monster>> monsterGrid;
@@ -69,11 +71,14 @@ void LevelManager::loadLevel() {
 }
 
 
-void LevelManager::drawLevel(sf::RenderWindow& window) {
-    for (int i = 0; i < numColBrick; ++i) {
-        for (int j = 0; j < numLigneBrick; ++j) {
-            monsterGrid[i][j].drawShape(window);
+void LevelManager::drawLevel() 
+{
+    for (int i = 0; i < numColBrick; ++i) 
+    {
+        for (int j = 0; j < numLigneBrick; ++j) 
+        {
+            monsterGrid[i][j].drawShape(WindowManager::getInstance().GetRenderWindow());
         }
     }
-
+    myBase.drawShape(WindowManager::getInstance().GetRenderWindow());
 }

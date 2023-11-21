@@ -13,8 +13,7 @@ Monster::Monster() : gameObject(70, 20, -20, 360, Color::Cyan)
 
 void Monster::OnCollisionEnter(gameObject* objectTest)
 {
-    this->life = life - 1;
-    Collide = Stay;
+    setOrientation(0, 0);
 }
 
 void Monster::setFromType()
@@ -38,13 +37,4 @@ void Monster::setFromType()
 void Monster::setType(int type)
 {
     this->type = type;
-}
-
-void Monster::setDamage(int damage)
-{
-    this->damage = damage;
-}
-
-void Monster::setLife(int life) {
-    this->life = life;
 }

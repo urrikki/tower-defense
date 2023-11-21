@@ -22,7 +22,6 @@ private:
 
 private:
 
-    sf::RenderWindow window;
     sf::Clock clock;
     //sf::SoundBuffer buffer;
 

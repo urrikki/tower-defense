@@ -4,7 +4,7 @@
 class base : public gameObject
 {
 public:
-    int life;
+    
 
     base();
 
@@ -12,6 +12,6 @@ public:
     void OnCollisionExit(gameObject* objectTest) override;
 
     void lifeBrick();
-    void setLife(int life);
+    
 
 };

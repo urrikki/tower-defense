@@ -6,9 +6,12 @@
 #include <cmath>
 #include <string>
 
-GameManager::GameManager() : window(sf::VideoMode(1280, 720), "SFML works!")
+#include "windowManager.h"
+
+GameManager::GameManager() 
 {
-    
+    sf::RenderWindow& window = WindowManager::getInstance().GetRenderWindow();
+
     myLevel.loadLevel();
     
    /* if (!buffer.loadFromFile("audio/background.mp3"))
@@ -26,7 +29,7 @@ void GameManager::runGame()
     sound.setBuffer(buffer);
     sound.play();*/
 
-    while (window.isOpen())
+    while (WindowManager::getInstance().GetRenderWindow().isOpen())
     {
 
         processEvents();
@@ -50,10 +53,10 @@ bool GameManager::levelFinish()
 void GameManager::processEvents()
 {
     sf::Event event;
-    while (window.pollEvent(event))
+    while (WindowManager::getInstance().GetRenderWindow().pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            window.close();
+            WindowManager::getInstance().GetRenderWindow().close();
         else if (event.type == sf::Event::MouseButtonPressed)
         {
             if (event.mouseButton.button == sf::Mouse::Left)
@@ -91,6 +94,7 @@ void GameManager::update(float elapsedTime)
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
             myLevel.monsterGrid[i][j].move(elapsedTime);
+            myLevel.monsterGrid[i][j].getCollide(&myLevel.myBase);
         }
     }
     
@@ -98,7 +102,7 @@ void GameManager::update(float elapsedTime)
 
 void GameManager::draw()
 {
-    window.clear();
-    myLevel.drawLevel(window);
-    window.display();
+    WindowManager::getInstance().GetRenderWindow().clear();
+    myLevel.drawLevel();
+    WindowManager::getInstance().GetRenderWindow().display();
 }
