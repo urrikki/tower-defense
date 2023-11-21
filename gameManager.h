@@ -18,11 +18,10 @@ private:
     void processEvents();
     void update(float elapsedTime);
     std::string gameScore();
-    void draw();
+    //void draw();
 
 private:
 
-    sf::RenderWindow window;
     sf::Clock clock;
     //sf::SoundBuffer buffer;
 

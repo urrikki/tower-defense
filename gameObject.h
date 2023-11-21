@@ -74,7 +74,6 @@ public:
     int getHeight();
     float getRadius();
 
-    float speed;
     void setSpeed(float speed);
 
 

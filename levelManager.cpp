@@ -4,6 +4,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "windowManager.h"
+
 LevelManager::LevelManager() {
 
     std::vector<std::vector<Monster>> monsterGrid;
@@ -33,7 +35,7 @@ void LevelManager::loadLevel() {
         return;
     }
 
-    // Déterminer le nombre de colonnes et de lignes en fonction du fichier
+    // Dï¿½terminer le nombre de colonnes et de lignes en fonction du fichier
     numColBrick = 0;
     numLigneBrick = 0;
     std::string line;
@@ -44,19 +46,19 @@ void LevelManager::loadLevel() {
         }
     }
 
-    // Réinitialiser la position du curseur de fichier pour lire à partir du début
+    // Rï¿½initialiser la position du curseur de fichier pour lire ï¿½ partir du dï¿½but
     levelFile.clear();
     levelFile.seekg(0, std::ios::beg);
 
     monsterGrid.resize(numColBrick, std::vector<Monster>(numLigneBrick));
 
-    // Lire les données du fichier et initialiser la grille
+    // Lire les donnï¿½es du fichier et initialiser la grille
     for (int j = 0; j < numLigneBrick; ++j) {
         std::getline(levelFile, line);
 
         for (int i = 0; i < numColBrick; ++i) {
             if (i < static_cast<int>(line.length())) {
-                int type = line[i] - '0';  // Convertir le caractère en entier
+                int type = line[i] - '0';  // Convertir le caractï¿½re en entier
                 monsterGrid[i][j] = Monster();
                 monsterGrid[i][j].setPosition(-100 - (i * 90.0), monsterGrid[i][j].y);
                 monsterGrid[i][j].setType(type);
@@ -69,14 +71,14 @@ void LevelManager::loadLevel() {
 }
 
 
-void LevelManager::drawLevel(sf::RenderWindow& window) 
+void LevelManager::drawLevel() 
 {
     for (int i = 0; i < numColBrick; ++i) 
     {
         for (int j = 0; j < numLigneBrick; ++j) 
         {
-            monsterGrid[i][j].drawShape(window);
+            monsterGrid[i][j].drawShape(WindowManager::getInstance().getRenderWindow());
         }
     }
-    myBase.drawShape(window);
+    myBase.drawShape(WindowManager::getInstance().getRenderWindow());
 }

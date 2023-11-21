@@ -13,7 +13,7 @@ public:
     ~LevelManager();
 
     void loadLevel();
-    void drawLevel(sf::RenderWindow& window);
+    void drawLevel();
 
     std::vector<std::vector<Monster>> monsterGrid;
     int numColBrick;

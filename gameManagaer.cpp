@@ -6,9 +6,12 @@
 #include <cmath>
 #include <string>
 
-GameManager::GameManager() : window(sf::VideoMode(1280, 720), "SFML works!")
+#include "windowManager.h"
+
+GameManager::GameManager() 
 {
-    
+    sf::RenderWindow& window = WindowManager::getInstance().getRenderWindow();
+
     myLevel.loadLevel();
     
    /* if (!buffer.loadFromFile("audio/background.mp3"))
@@ -26,13 +29,13 @@ void GameManager::runGame()
     sound.setBuffer(buffer);
     sound.play();*/
 
-    while (window.isOpen())
+    while (WindowManager::getInstance().getRenderWindow().isOpen())
     {
 
         processEvents();
         elapsedTime = clock.restart().asSeconds();
         update(elapsedTime);
-        draw();
+        WindowManager::getInstance().Draw(myLevel);
         if (levelFinish())
         {
             ++myLevel.nbrLevel;
@@ -50,10 +53,10 @@ bool GameManager::levelFinish()
 void GameManager::processEvents()
 {
     sf::Event event;
-    while (window.pollEvent(event))
+    while (WindowManager::getInstance().getRenderWindow().pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            window.close();
+            WindowManager::getInstance().getRenderWindow().close();
         else if (event.type == sf::Event::MouseButtonPressed)
         {
             if (event.mouseButton.button == sf::Mouse::Left)
@@ -96,11 +99,4 @@ void GameManager::update(float elapsedTime)
         }
     }
     
-}
-
-void GameManager::draw()
-{
-    window.clear();
-    myLevel.drawLevel(window);
-    window.display();
 }
