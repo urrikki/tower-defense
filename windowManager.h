@@ -31,11 +31,9 @@ public:
 
     ~WindowManager();
 
-    void Update();
+    sf::RenderWindow& getRenderWindow();
 
-    sf::RenderWindow& GetRenderWindow();
-
-    const sf::Vector2i& GetWindowSize();
+    const sf::Vector2i& getWindowSize();
 
     void Draw(LevelManager myLevel);
 };

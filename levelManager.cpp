@@ -77,8 +77,8 @@ void LevelManager::drawLevel()
     {
         for (int j = 0; j < numLigneBrick; ++j) 
         {
-            monsterGrid[i][j].drawShape(WindowManager::getInstance().GetRenderWindow());
+            monsterGrid[i][j].drawShape(WindowManager::getInstance().getRenderWindow());
         }
     }
-    myBase.drawShape(WindowManager::getInstance().GetRenderWindow());
+    myBase.drawShape(WindowManager::getInstance().getRenderWindow());
 }

@@ -21,19 +21,19 @@ WindowManager::~WindowManager()
 
 // Methods
 
-sf::RenderWindow& WindowManager::GetRenderWindow()
+sf::RenderWindow& WindowManager::getRenderWindow()
 {
     return *oWindow;
 }
 
-const sf::Vector2i& WindowManager::GetWindowSize()
+const sf::Vector2i& WindowManager::getWindowSize()
 {
     return windowSize;
 }
 
 void WindowManager::Draw(LevelManager myLevel)
 {
-    WindowManager::getInstance().GetRenderWindow().clear();
+    WindowManager::getInstance().getRenderWindow().clear();
     myLevel.drawLevel();
-    WindowManager::getInstance().GetRenderWindow().display();
+    WindowManager::getInstance().getRenderWindow().display();
 }

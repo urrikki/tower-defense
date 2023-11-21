@@ -10,7 +10,7 @@
 
 GameManager::GameManager() 
 {
-    sf::RenderWindow& window = WindowManager::getInstance().GetRenderWindow();
+    sf::RenderWindow& window = WindowManager::getInstance().getRenderWindow();
 
     myLevel.loadLevel();
     
@@ -29,7 +29,7 @@ void GameManager::runGame()
     sound.setBuffer(buffer);
     sound.play();*/
 
-    while (WindowManager::getInstance().GetRenderWindow().isOpen())
+    while (WindowManager::getInstance().getRenderWindow().isOpen())
     {
 
         processEvents();
@@ -53,10 +53,10 @@ bool GameManager::levelFinish()
 void GameManager::processEvents()
 {
     sf::Event event;
-    while (WindowManager::getInstance().GetRenderWindow().pollEvent(event))
+    while (WindowManager::getInstance().getRenderWindow().pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            WindowManager::getInstance().GetRenderWindow().close();
+            WindowManager::getInstance().getRenderWindow().close();
         else if (event.type == sf::Event::MouseButtonPressed)
         {
             if (event.mouseButton.button == sf::Mouse::Left)
