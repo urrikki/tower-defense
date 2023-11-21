@@ -90,7 +90,6 @@ void GameManager::update(float elapsedTime)
 
     for (int j = 0; j < myLevel.numLigneBrick; ++j) 
     {
-
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
             myLevel.monsterGrid[i][j].move(elapsedTime);
