@@ -18,7 +18,7 @@ private:
     void processEvents();
     void update(float elapsedTime);
     std::string gameScore();
-    void draw();
+    //void draw();
 
 private:
 

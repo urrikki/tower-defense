@@ -8,6 +8,7 @@
 #define DEFAULT_HEIGHT 720
 
 class GameObject;
+class LevelManager;
 
 class WindowManager
 {
@@ -36,5 +37,5 @@ public:
 
     const sf::Vector2i& GetWindowSize();
 
-    void Draw();
+    void Draw(LevelManager myLevel);
 };

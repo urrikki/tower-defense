@@ -35,7 +35,7 @@ void GameManager::runGame()
         processEvents();
         elapsedTime = clock.restart().asSeconds();
         update(elapsedTime);
-        draw();
+        WindowManager::getInstance().Draw(myLevel);
         if (levelFinish())
         {
             ++myLevel.nbrLevel;
@@ -98,11 +98,4 @@ void GameManager::update(float elapsedTime)
         }
     }
     
-}
-
-void GameManager::draw()
-{
-    WindowManager::getInstance().GetRenderWindow().clear();
-    myLevel.drawLevel();
-    WindowManager::getInstance().GetRenderWindow().display();
 }
