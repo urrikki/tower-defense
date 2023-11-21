@@ -54,6 +54,11 @@ public:
     float y;
     float angle;
     bool isActive;
+    float damage;
+    int speed;
+    float attackCooldown ;
+    float attackTimer;
+    int life;
 
     CollideType Collide;
 
@@ -111,5 +116,11 @@ public:
     bool operator==(const gameObject& other) const;
 
     void manageCollide(gameObject* objectTest);
+
+    void setDamage(int damage);
+
+    void setLife(int life);
+    
+    void setLife(int life);
 
 };

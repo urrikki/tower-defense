@@ -2,9 +2,11 @@
 
 #include "tower.h"
 #include "monster.h"
+#include "base.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+
 class LevelManager {
 public:
     LevelManager();
@@ -21,4 +23,6 @@ public:
     int numBall;
 
     int nbrLevel;
+
+    base myBase;
 };

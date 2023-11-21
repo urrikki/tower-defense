@@ -69,11 +69,14 @@ void LevelManager::loadLevel() {
 }
 
 
-void LevelManager::drawLevel(sf::RenderWindow& window) {
-    for (int i = 0; i < numColBrick; ++i) {
-        for (int j = 0; j < numLigneBrick; ++j) {
+void LevelManager::drawLevel(sf::RenderWindow& window) 
+{
+    for (int i = 0; i < numColBrick; ++i) 
+    {
+        for (int j = 0; j < numLigneBrick; ++j) 
+        {
             monsterGrid[i][j].drawShape(window);
         }
     }
-
+    myBase.drawShape(window);
 }
