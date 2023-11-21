@@ -221,7 +221,7 @@ CollideSide gameObject::getCollideSide(gameObject* objectTest) {
     float objTestW = (objectTest->getShapeType() == ShapeType::Circle) ? objectTest->r : objectTest->w;
     float objTestH = (objectTest->getShapeType() == ShapeType::Circle) ? objectTest->r : objectTest->h;
 
-    // Stocker les résultats dans la structure
+    // Stocker les rï¿½sultats dans la structure
     distanceResult results[] = {
         distanceResult("rtol", x + thisW - objectTest->x),
         distanceResult("ltor", objectTest->x + objTestW - x),
@@ -310,17 +310,17 @@ void gameObject::OnCollisionExit(gameObject* object)
 
 bool gameObject::isShapeOnScreen(sf::RenderWindow& window)
 {
-    // Obtenez les dimensions de la fenêtre
+    // Obtenez les dimensions de la fenï¿½tre
     float windowWidth = static_cast<float>(window.getSize().x);
     float windowHeight = static_cast<float>(window.getSize().y);
 
-    // Obtenez les coordonnées de la shape
+    // Obtenez les coordonnï¿½es de la shape
     float shapeLeft = shape->getPosition().x;
     float shapeTop = shape->getPosition().y;
     float shapeRight = shapeLeft + shape->getGlobalBounds().width;
     float shapeBottom = shapeTop + shape->getGlobalBounds().height;
 
-    // Vérifiez si la shape est entièrement à l'intérieur de l'écran
+    // Vï¿½rifiez si la shape est entiï¿½rement ï¿½ l'intï¿½rieur de l'ï¿½cran
     if (shapeLeft >= 0 && shapeTop >= 0 && shapeRight <= windowWidth && shapeBottom <= windowHeight)
     {
         return true;
