@@ -91,7 +91,8 @@ void GameManager::update(float elapsedTime)
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
             myLevel.monsterGrid[i][j].move(elapsedTime);
-            myLevel.monsterGrid[i][j].getCollide(&myLevel.myBase);
+            myLevel.monsterGrid[i][j].canAttack(elapsedTime, &myLevel.myBase);
+            myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);  
         }
     }
     

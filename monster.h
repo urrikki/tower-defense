@@ -10,6 +10,8 @@ public:
     Monster();
 
     void OnCollisionEnter(gameObject* objectTest) override;
+    void OnCollisionStay(gameObject* object) override;
+    void OnCollisionExit(gameObject* object) override;
 
     void setFromType();
 

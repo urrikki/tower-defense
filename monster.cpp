@@ -13,7 +13,18 @@ Monster::Monster() : gameObject(70, 20, -20, 360, Color::Cyan)
 
 void Monster::OnCollisionEnter(gameObject* objectTest)
 {
-    setOrientation(0, 0);
+    setSpeed(0);
+    performAttack(objectTest);
+};
+
+void Monster::OnCollisionStay(gameObject* object)
+{
+    performAttack(object);
+}
+
+void Monster::OnCollisionExit(gameObject* object)
+{
+
 }
 
 void Monster::setFromType()
@@ -38,3 +49,4 @@ void Monster::setType(int type)
 {
     this->type = type;
 }
+
