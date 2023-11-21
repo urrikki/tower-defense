@@ -6,19 +6,19 @@
 
 LevelManager::LevelManager() {
 
-    std::vector<std::vector<Brick>> brickGrid;
+    std::vector<std::vector<Monster>> monsterGrid;
     numColBrick = 0;
     numLigneBrick = 0;
 
-    std::vector<Ball> ballGrid;
-    numBall = 15;
+    std::vector<tower> towerGrid;
+    numBall = 0;
 
     nbrLevel = 1;
 }
 
 LevelManager::~LevelManager() {
-    brickGrid.clear();
-    ballGrid.clear();
+    monsterGrid.clear();
+    towerGrid.clear();
 }
 
 void LevelManager::loadLevel() {
@@ -48,7 +48,7 @@ void LevelManager::loadLevel() {
     levelFile.clear();
     levelFile.seekg(0, std::ios::beg);
 
-    brickGrid.resize(numColBrick, std::vector<Brick>(numLigneBrick));
+    monsterGrid.resize(numColBrick, std::vector<Monster>(numLigneBrick));
 
     // Lire les données du fichier et initialiser la grille
     for (int j = 0; j < numLigneBrick; ++j) {
@@ -56,11 +56,11 @@ void LevelManager::loadLevel() {
 
         for (int i = 0; i < numColBrick; ++i) {
             if (i < static_cast<int>(line.length())) {
-                int life = line[i] - '0';  // Convertir le caractère en entier
-                brickGrid[i][j] = Brick();
-                brickGrid[i][j].setPosition(200.0 + (i * 90.0), 60.0 + (j * 40.0));
-                brickGrid[i][j].setLife(life);
-                brickGrid[i][j].lifeBrick();
+                int type = line[i] - '0';  // Convertir le caractère en entier
+                monsterGrid[i][j] = Monster();
+                monsterGrid[i][j].setPosition(-100 - (i * 90.0), monsterGrid[i][j].y);
+                monsterGrid[i][j].setType(type);
+                monsterGrid[i][j].setFromType();
             }
         }
     }
@@ -68,20 +68,11 @@ void LevelManager::loadLevel() {
     levelFile.close();
 }
 
-void LevelManager::loadBall()
-{
-    ballGrid.resize(numBall);
-    for (int i = 0; i < numBall; ++i) {
-        ballGrid[i] = Ball();
-        ballGrid[i].isActive = false;
-        ballGrid[i].initBall();
-    }
-}
 
 void LevelManager::drawLevel(sf::RenderWindow& window) {
     for (int i = 0; i < numColBrick; ++i) {
         for (int j = 0; j < numLigneBrick; ++j) {
-            brickGrid[i][j].drawShape(window);
+            monsterGrid[i][j].drawShape(window);
         }
     }
 

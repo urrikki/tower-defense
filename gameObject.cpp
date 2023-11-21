@@ -18,6 +18,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
     this->x = x;
     this->y = y;
     m_color = color;
+
     speed = 0;
     shapeType = NoShape;
     orientationX = 0;
@@ -32,6 +33,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
     {
         shapeType = Rectangle;
     }
+
     shape->setPosition(x, y);
     shape->setFillColor(m_color);
 

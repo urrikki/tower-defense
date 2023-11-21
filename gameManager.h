@@ -30,7 +30,7 @@ private:
     bool levelFinish();
 
     tower myTower;
-    monster myMonster;
+    Monster myMonster;
     LevelManager myLevel;
     
 };

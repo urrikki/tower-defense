@@ -13,13 +13,11 @@ public:
     void loadLevel();
     void drawLevel(sf::RenderWindow& window);
 
-    void loadBall();
-
-    std::vector<std::vector<Monster>> brickGrid;
+    std::vector<std::vector<Monster>> monsterGrid;
     int numColBrick;
     int numLigneBrick;
 
-    std::vector<tower> ballGrid;
+    std::vector<tower> towerGrid;
     int numBall;
 
     int nbrLevel;

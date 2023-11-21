@@ -8,13 +8,18 @@ public:
     int type;
     int speed;
     int life;
+    int damage;
+    float attackCooldown ; 
+    float attackTimer;
 
     Monster();
 
     void OnCollisionEnter(gameObject* objectTest) override;
-    void OnCollisionExit(gameObject* objectTest) override;
 
-    void lifeBrick();
+    void setFromType();
+    void setDamage(int damage);
+
     void setLife(int life);
+    void setType(int type);
 
 };

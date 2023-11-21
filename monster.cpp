@@ -5,10 +5,10 @@
 
 using namespace sf;
 
-Monster::Monster() : gameObject(70, 20, 640, 360, Color::Cyan)
+Monster::Monster() : gameObject(70, 20, -20, 360, Color::Cyan)
 {
     type = 1;
-    speed = (100);
+    setOrientation(1, 0);
 };
 
 void Monster::OnCollisionEnter(gameObject* objectTest)
@@ -17,34 +17,32 @@ void Monster::OnCollisionEnter(gameObject* objectTest)
     Collide = Stay;
 }
 
-void Monster::OnCollisionExit(gameObject* objectTest)
+void Monster::setFromType()
 {
-
-    lifeBrick();
-    Collide = NoCollide;
-
+    if (type == 1) //troll assasin
+    {
+        setLife(1);
+        setDamage(7);
+        setSpeed(185);
+        setSizeRec(20, 20);
+    }
+    else if (type == 2) //troll tank
+    {
+        setLife(5);
+        setDamage(2);
+        setSpeed(110);
+        setSizeRec(40, 40);
+    }
 }
 
-void Monster::lifeBrick()
+void Monster::setType(int type)
 {
-    if (life == 4)
-    {
-        setColor(sf::Color::Cyan); // Cyan
-    }
-    else if (life == 3) {
-        setColor(sf::Color(60, 250, 0)); // Green
-    }
-    else if (life == 2) {
-        setColor(sf::Color(120, 90, 210)); //Purple
-    }
-    else if (life == 1) {
-        setColor(sf::Color::Yellow); // Yellow
-    }
-    else if (life <= 0)
-    {
-        isActive = false;
-        setPosition(3000, 0);
-    }
+    this->type = type;
+}
+
+void Monster::setDamage(int damage)
+{
+    this->damage = damage;
 }
 
 void Monster::setLife(int life) {
