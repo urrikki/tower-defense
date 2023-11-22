@@ -12,7 +12,7 @@ public:
 
 	void addText(std::string content, float x, float y, sf::Color color, int size);
 	void setContent(size_t index, std::string newContent);
-	void draw(sf::RenderWindow& window);
+	void drawText();
 
 
 private:

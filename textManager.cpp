@@ -1,4 +1,5 @@
 #include "textManager.h"
+#include "windowManager.h"
 
 #include <vector>
 #include<iostream>
@@ -25,9 +26,9 @@ void TextManager::setContent(size_t index, std::string newContent)
     texts[index].setString(newContent);
 }
 
-void TextManager::draw(sf::RenderWindow& window)
+void TextManager::drawText()
 {
     for (auto& text : texts) {
-        window.draw(text);
+        WindowManager::getInstance().getRenderWindow().draw(text);
     }
 }

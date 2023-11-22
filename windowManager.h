@@ -9,6 +9,7 @@
 
 class GameObject;
 class LevelManager;
+class TextManager;
 
 class WindowManager
 {
@@ -35,5 +36,5 @@ public:
 
     const sf::Vector2i& getWindowSize();
 
-    void Draw(LevelManager myLevel);
+    void draw(LevelManager myLevel, TextManager myText);
 };
