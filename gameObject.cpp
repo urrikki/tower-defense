@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 
 #include "gameObject.h"
+#include "windowManager.h"
 
 #include <SFML/Graphics.hpp>
 #include <cmath>
@@ -349,15 +350,12 @@ void gameObject::setRotation(float angle)
 };
 
 // --Draw
-void gameObject::drawShape(RenderWindow& window)
+void gameObject::drawShape()
 {
     if (isActive == true)
     {
-        window.draw(*shape);
-        if (maxlife != 0)
-        {
-            drawHealthBar(window);
-        }  
+        WindowManager::getInstance().getRenderWindow().draw(*shape);
+        drawHealthBar(WindowManager::getInstance().getRenderWindow());
     }
 };
 

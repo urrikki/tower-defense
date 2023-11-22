@@ -10,10 +10,12 @@
 
 GameManager::GameManager() 
 {
+    wave = 0;
     sf::RenderWindow& window = WindowManager::getInstance().getRenderWindow();
 
     myLevel.loadLevel();
-    
+    myText.addText(" Wave n" + std::to_string(wave), 1150, 630, sf::Color::White, 25);
+
    /* if (!buffer.loadFromFile("audio/background.mp3"))
     {
         std::cout << "Erreur lors du chargement du son." << std::endl;
@@ -35,7 +37,7 @@ void GameManager::runGame()
         processEvents();
         elapsedTime = clock.restart().asSeconds();
         update(elapsedTime);
-        WindowManager::getInstance().Draw(myLevel);
+        WindowManager::getInstance().draw(myLevel, myText);
         if (levelFinish())
         {
             ++myLevel.nbrLevel;

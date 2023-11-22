@@ -30,9 +30,10 @@ const sf::Vector2i& WindowManager::getWindowSize()
     return windowSize;
 }
 
-void WindowManager::Draw(LevelManager myLevel)
+void WindowManager::draw(LevelManager myLevel, TextManager myText)
 {
     WindowManager::getInstance().getRenderWindow().clear();
     myLevel.drawLevel();
+    myText.drawText();
     WindowManager::getInstance().getRenderWindow().display();
 }

@@ -81,7 +81,7 @@ public:
     void setColor(sf::Color color);
     sf::Color getColor();
 
-    void drawShape(sf::RenderWindow& window);
+    void drawShape();
 
     bool getCollide(gameObject* objectTest);
     CollideSide getCollideSide(gameObject* objectTest);

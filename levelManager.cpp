@@ -1,10 +1,10 @@
 #include "levelManager.h"
+#include "windowManager.h"
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
-#include "windowManager.h"
 
 LevelManager::LevelManager() {
 
@@ -96,7 +96,7 @@ void LevelManager::drawLevel()
     {
         for (int j = 0; j < numLigneBrick; ++j) 
         {
-            monsterGrid[i][j].drawShape(WindowManager::getInstance().getRenderWindow());
+            monsterGrid[i][j].drawShape();
         }
     }
     drawTower();

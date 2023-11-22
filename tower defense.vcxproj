@@ -138,6 +138,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="power.cpp" />
+    <ClCompile Include="textManager.cpp" />
     <ClCompile Include="tower.cpp" />
     <ClCompile Include="windowManager.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="levelManager.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="power.h" />
+    <ClInclude Include="textManager.h" />
     <ClInclude Include="tower.h" />
     <ClInclude Include="windowManager.h" />
   </ItemGroup>

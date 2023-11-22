@@ -1,5 +1,6 @@
 #pragma once
 #include "levelManager.h"
+#include "textManager.h"
 #include "tower.h" 
 #include "monster.h"
 
@@ -25,6 +26,7 @@ private:
     sf::Clock clock;
     //sf::SoundBuffer buffer;
 
+    int wave;
     float elapsedTime = 0.0;
 
     bool levelFinish();
@@ -32,5 +34,6 @@ private:
     tower myTower;
     Monster myMonster;
     LevelManager myLevel;
+    TextManager myText;
     
 };
