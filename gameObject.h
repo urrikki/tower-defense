@@ -55,10 +55,10 @@ public:
     float angle;
     bool isActive;
     float damage;
-    int speed;
     float attackCooldown ;
     float attackTimer;
-    int life;
+    float maxlife;
+    float life;
 
     CollideType Collide;
 
@@ -74,6 +74,7 @@ public:
     int getHeight();
     float getRadius();
 
+    float speed;
     void setSpeed(float speed);
 
 
@@ -120,4 +121,11 @@ public:
 
     void setLife(int life);
 
+    void performAttack(gameObject* objectTest);
+    void canAttack(float elapsedTime , gameObject* objectTest);
+    bool attack;
+
+    void getHit();
+
+    void drawHealthBar(sf::RenderWindow& window);
 };

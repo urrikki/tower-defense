@@ -80,5 +80,6 @@ void LevelManager::drawLevel()
             monsterGrid[i][j].drawShape(WindowManager::getInstance().getRenderWindow());
         }
     }
+
     myBase.drawShape(WindowManager::getInstance().getRenderWindow());
 }

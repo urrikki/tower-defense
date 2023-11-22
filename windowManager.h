@@ -4,7 +4,7 @@
 #include <SFML/Window/Mouse.hpp>
 #include <vector>
 
-#define DEFAULT_WIDTH 1080
+#define DEFAULT_WIDTH 1280
 #define DEFAULT_HEIGHT 720
 
 class GameObject;
