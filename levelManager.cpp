@@ -38,7 +38,7 @@ void LevelManager::drawTower()
 {
     for (int i = 0; i < numTower; i++)
     {
-        towerGrid[i].drawShape(WindowManager::getInstance().getRenderWindow());
+        towerGrid[i].drawShape();
     }
 }
 
@@ -100,7 +100,7 @@ void LevelManager::drawLevel()
         }
     }
     drawTower();
-    myBase.drawShape(WindowManager::getInstance().getRenderWindow());
+    myBase.drawShape();
 }
 
 std::pair<int, int> LevelManager::closestToo() 
