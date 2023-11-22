@@ -13,7 +13,6 @@ GameManager::GameManager()
     wave = 0;
     sf::RenderWindow& window = WindowManager::getInstance().getRenderWindow();
 
-    myLevel.loadLevel();
     myText.addText(" Wave n" + std::to_string(wave), 1150, 630, sf::Color::White, 25);
 
    /* if (!buffer.loadFromFile("audio/background.mp3"))
@@ -30,6 +29,7 @@ void GameManager::runGame()
     /*sf::Sound sound;
     sound.setBuffer(buffer);
     sound.play();*/
+    myLevel.loadLevel();
 
     while (WindowManager::getInstance().getRenderWindow().isOpen())
     {
