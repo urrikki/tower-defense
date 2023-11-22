@@ -61,6 +61,7 @@ void GameManager::processEvents()
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
+                myLevel.loadTower(1);
             }
         }
     }
@@ -87,15 +88,24 @@ void GameManager::update(float elapsedTime)
     {
         myCanon.setRotation(myCanon.angle);
     }*/
-
+    
     for (int j = 0; j < myLevel.numLigneBrick; ++j) 
     {
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
             myLevel.monsterGrid[i][j].move(elapsedTime);
             myLevel.monsterGrid[i][j].canAttack(elapsedTime, &myLevel.myBase);
-            myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);  
+            myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);
+            for (int k = 0; k < myLevel.numTower; k++)
+            {
+                std::pair<int, int> closestMonster = myLevel.closestToo();
+                myLevel.towerGrid[k].focusOn(&myLevel.monsterGrid[closestMonster.first][closestMonster.second]);
+                
+            }
+            
         }
     }
+
+    
     
 }

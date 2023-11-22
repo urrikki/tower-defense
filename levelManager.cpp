@@ -13,7 +13,7 @@ LevelManager::LevelManager() {
     numLigneBrick = 0;
 
     std::vector<tower> towerGrid;
-    numBall = 0;
+    numTower = 0;
 
     nbrLevel = 1;
 }
@@ -21,6 +21,25 @@ LevelManager::LevelManager() {
 LevelManager::~LevelManager() {
     monsterGrid.clear();
     towerGrid.clear();
+}
+
+void LevelManager::loadTower(int type)
+{
+    this->numTower++;
+    towerGrid.resize(numTower);
+    towerGrid[numTower - 1] = tower();
+    towerGrid[numTower - 1].setPosition(300 + (numTower * 100), 20);
+    towerGrid[numTower - 1].setType(type);
+    towerGrid[numTower - 1].setFromType();
+    
+}
+
+void LevelManager::drawTower()
+{
+    for (int i = 0; i < numTower; i++)
+    {
+        towerGrid[i].drawShape(WindowManager::getInstance().getRenderWindow());
+    }
 }
 
 void LevelManager::loadLevel() {
@@ -80,6 +99,34 @@ void LevelManager::drawLevel()
             monsterGrid[i][j].drawShape(WindowManager::getInstance().getRenderWindow());
         }
     }
-
+    drawTower();
     myBase.drawShape(WindowManager::getInstance().getRenderWindow());
 }
+
+std::pair<int, int> LevelManager::closestToo() 
+{
+    float minDistance = std::numeric_limits<float>::max();
+    int closestI = -1;
+    int closestJ = -1;
+
+    for (int i = 0; i < numColBrick; ++i) {
+        for (int j = 0; j < numLigneBrick; ++j) {
+            float distance = calculateDistance(&monsterGrid[i][j], &myBase);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestI = i;
+                closestJ = j;
+            }
+        }
+    }
+
+    return std::make_pair(closestI, closestJ);
+}
+
+float LevelManager::calculateDistance(gameObject* obj1 , gameObject* obj2) 
+{
+    float dx = obj1->getX() - obj2->getX();
+    float dy = obj1->getY() - obj2->getY();
+    return std::sqrt(dx * dx + dy * dy);
+}
+

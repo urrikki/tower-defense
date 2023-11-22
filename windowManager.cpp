@@ -19,9 +19,7 @@ WindowManager::~WindowManager()
     oWindow->close();
 }
 
-
 // Methods
-
 sf::RenderWindow& WindowManager::getRenderWindow()
 {
     return *oWindow;

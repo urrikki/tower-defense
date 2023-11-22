@@ -258,7 +258,7 @@ CollideSide gameObject::getCollideSide(gameObject* objectTest) {
     return CollideSide::None;
 }
 
-bool gameObject::operator==(const gameObject& other) const {
+bool gameObject::operator==(gameObject& other) {
     return (x == other.x && y == other.y && w == other.w && h == other.h || r == other.r);
 }
 
@@ -274,7 +274,7 @@ void gameObject::manageCollide(gameObject* objectTest)
         }
         else
         {
-            beCollide.push_back(*objectTest);
+            beCollide.push_back(objectTest);
             OnCollisionEnter(objectTest);
             bAlreadyHasCollision = true;
         }
@@ -284,7 +284,7 @@ void gameObject::manageCollide(gameObject* objectTest)
         if (bAlreadyHasCollision)
         {
             auto it = std::remove_if(beCollide.begin(), beCollide.end(),
-                [objectTest](const gameObject& obj) { return &obj == objectTest; });
+                [objectTest](gameObject* obj) { return obj == objectTest; });
 
             beCollide.erase(it, beCollide.end());
             beCollide.shrink_to_fit();
@@ -354,7 +354,10 @@ void gameObject::drawShape(RenderWindow& window)
     if (isActive == true)
     {
         window.draw(*shape);
-        drawHealthBar(window);
+        if (maxlife != 0)
+        {
+            drawHealthBar(window);
+        }  
     }
 };
 
@@ -424,3 +427,6 @@ void gameObject::drawHealthBar(RenderWindow& window)
     healthBar.setFillColor(Color::Red);
     window.draw(healthBar);
 }
+
+
+

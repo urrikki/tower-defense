@@ -40,7 +40,7 @@ class gameObject
 private:
     float dx;
     float dy;
-    std::vector<gameObject> beCollide;
+    std::vector<gameObject*> beCollide;
     bool bAlreadyHasCollision = false; //
 
 public:
@@ -113,7 +113,7 @@ public:
 
     CollideSide sideForRebound;
 
-    bool operator==(const gameObject& other) const;
+    bool operator==(gameObject& other) ;
 
     void manageCollide(gameObject* objectTest);
 
@@ -128,4 +128,5 @@ public:
     void getHit();
 
     void drawHealthBar(sf::RenderWindow& window);
+
 };

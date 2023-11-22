@@ -20,9 +20,15 @@ public:
     int numLigneBrick;
 
     std::vector<tower> towerGrid;
-    int numBall;
+    int numTower;
+
+    void loadTower(int type);
+    void drawTower();
 
     int nbrLevel;
+
+    std::pair<int, int> closestToo() ;
+    float calculateDistance(gameObject* obj1, gameObject* obj2) ;
 
     base myBase;
 };
