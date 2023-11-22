@@ -76,6 +76,7 @@ public:
 
     float speed;
     void setSpeed(float speed);
+    float getSpeed();
 
 
     void setColor(sf::Color color);
@@ -122,11 +123,12 @@ public:
     void setLife(int life);
 
     void performAttack(gameObject* objectTest);
-    void canAttack(float elapsedTime , gameObject* objectTest);
+    void canAttack(float elapsedTime);
     bool attack;
 
     void getHit();
 
     void drawHealthBar(sf::RenderWindow& window);
 
+    void die();
 };

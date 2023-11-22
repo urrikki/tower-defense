@@ -82,6 +82,11 @@ void gameObject::setSpeed(float speed)
     this->speed = speed;
 }
 
+float gameObject::getSpeed()
+{
+    return speed;
+}
+
 void gameObject::setPosition(float x, float y)
 {
     this->x = x;
@@ -292,7 +297,7 @@ void gameObject::manageCollide(gameObject* objectTest)
 
             OnCollisionExit(objectTest);
             bAlreadyHasCollision = false;
-
+            die();
         }
     }
 }
@@ -355,7 +360,10 @@ void gameObject::drawShape()
     if (isActive == true)
     {
         WindowManager::getInstance().getRenderWindow().draw(*shape);
-        drawHealthBar(WindowManager::getInstance().getRenderWindow());
+        if (maxlife != 0)
+        {
+            drawHealthBar(WindowManager::getInstance().getRenderWindow());
+        }    
     }
 };
 
@@ -386,24 +394,23 @@ void gameObject::getHit()
     std::cout << life;
 }
 
-void gameObject::canAttack(float elapsedTime , gameObject* objectTest)
+void gameObject::canAttack(float elapsedTime )
 {
     // Mettez à jour le chronomètre d'attaque
-    if (getCollide(objectTest))
-    {
-        if (attackTimer > 0.0f) {
-            attackTimer -= elapsedTime;
-            if (attackTimer < 0.0f) {
-                attackTimer = 0.0f;
-            }
-        }
-
-        // Votre logique de mise à jour habituelle pour le monstre ici
-        if (attackTimer == 0.0f) {
-            attack = true;
-            attackTimer = attackCooldown;
+    
+    if (attackTimer > 0.0f) {
+        attackTimer -= elapsedTime;
+        if (attackTimer < 0.0f) {
+            attackTimer = 0.0f;
         }
     }
+
+    // Votre logique de mise à jour habituelle pour le monstre ici
+    if (attackTimer == 0.0f ) {
+        attack = true;
+        attackTimer = attackCooldown;
+    }
+    
     
 }
 
@@ -427,4 +434,10 @@ void gameObject::drawHealthBar(RenderWindow& window)
 }
 
 
-
+void gameObject::die()
+{
+    if (maxlife <= life)
+    {
+        isActive == false;
+    }
+}
