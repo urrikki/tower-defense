@@ -30,6 +30,7 @@ void GameManager::runGame()
     /*sf::Sound sound;
     sound.setBuffer(buffer);
     sound.play();*/
+    myLevel.loadLevel();
 
     myLevel.loadLevel();
     while (WindowManager::getInstance().getRenderWindow().isOpen())

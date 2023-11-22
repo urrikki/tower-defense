@@ -28,7 +28,8 @@ void TextManager::setContent(size_t index, std::string newContent)
 
 void TextManager::drawText()
 {
-    for (auto& text : texts) {
+    for (auto& text : texts) 
+    {
         WindowManager::getInstance().getRenderWindow().draw(text);
     }
 }
