@@ -2,6 +2,7 @@
 #include "levelManager.h"
 #include "textManager.h"
 #include "windowManager.h"
+#include "audioManager.h"
 #include "tower.h" 
 #include "monster.h"
 
@@ -37,5 +38,6 @@ private:
     Monster myMonster;
     LevelManager myLevel;
     TextManager myText;
+    AudioManager myAudio;
     
 };
