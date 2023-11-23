@@ -17,8 +17,9 @@ public:
     void focusOn(gameObject* obj);
 
     int numBall;
-    void shoot(float elapsedTime, float dx, float dy);
+    void shoot();
     std::vector<Ball> ballGrid;
 
     void drawBall();
+    void eraseBallOnCollide();
 };

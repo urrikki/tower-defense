@@ -1,6 +1,8 @@
 #pragma once
 #include "levelManager.h"
 #include "textManager.h"
+#include "windowManager.h"
+#include "audioManager.h"
 #include "tower.h" 
 #include "monster.h"
 
@@ -23,6 +25,7 @@ private:
 
 private:
 
+    bool isPaused;
     sf::Clock clock;
     //sf::SoundBuffer buffer;
 
@@ -35,5 +38,7 @@ private:
     Monster myMonster;
     LevelManager myLevel;
     TextManager myText;
+    AudioManager myAudio;
+    
     Power myPower;
 };

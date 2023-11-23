@@ -40,5 +40,6 @@ public:
     const sf::Vector2i& getWindowSize();
 
     void draw(LevelManager myLevel, TextManager myText);
+    void drawPause(LevelManager myLevel, TextManager myText);
     void drawMenu();
 };

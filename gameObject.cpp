@@ -29,6 +29,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
     attackCooldown = 2.0f;
     attackTimer = 0.0f;
     maxlife = 0;
+    life = 0;
     attack = false;
 
     shape = new RectangleShape(sf::Vector2f(w, h));
@@ -89,9 +90,12 @@ float gameObject::getSpeed()
 
 void gameObject::setPosition(float x, float y)
 {
-    this->x = x;
-    this->y = y;
-    shape->setPosition(x, y);
+    if (isActive)
+    {
+        this->x = x;
+        this->y = y;
+        shape->setPosition(x, y);
+    }   
 };
 
 void gameObject::setSizeRec(int w, int h)
@@ -177,9 +181,12 @@ float gameObject::getOrientationY()
 
 void gameObject::move(float elapsedTimeF)
 {
-    float newX = x + (speed * (elapsedTimeF * orientationX));
-    float newY = y + (speed * (elapsedTimeF * orientationY));
-    setPosition(newX, newY);
+    if (isActive)
+    {
+        float newX = x + (speed * (elapsedTimeF * orientationX));
+        float newY = y + (speed * (elapsedTimeF * orientationY));
+        setPosition(newX, newY);
+    }  
 }
 
 
@@ -423,7 +430,7 @@ void gameObject::drawHealthBar(RenderWindow& window)
 
     // Calcule la longueur de la barre de vie en fonction de la vie actuelle
     float healthPercentage = ((maxlife - life) * 100 ) / maxlife;
-    int healthBarWidth = ((w *healthPercentage) / 100);
+    float healthBarWidth = ((w *healthPercentage) / 100);
 
     // Dessine la barre de vie rouge représentant la vie actuelle
     RectangleShape healthBar(Vector2f(healthBarWidth , 5));
