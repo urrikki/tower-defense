@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audioManager.cpp" />
+    <ClCompile Include="ball.cpp" />
     <ClCompile Include="base.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="gameManagaer.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audioManager.h" />
+    <ClInclude Include="ball.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="gameManager.h" />

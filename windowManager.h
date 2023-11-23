@@ -1,4 +1,5 @@
 #pragma once
+#include "textManager.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -16,6 +17,7 @@ class WindowManager
 private:
     const char* name;
     sf::RenderWindow* oWindow;
+    sf::RenderWindow* oMenuWindow;
     sf::Vector2i windowSize;
 
     WindowManager(int _windowWidth = DEFAULT_WIDTH, int _windowHeight = DEFAULT_HEIGHT, const char* name = "Class Brick");
@@ -33,8 +35,10 @@ public:
     ~WindowManager();
 
     sf::RenderWindow& getRenderWindow();
+    sf::RenderWindow& getMenuWindow();
 
     const sf::Vector2i& getWindowSize();
 
     void draw(LevelManager myLevel, TextManager myText);
+    void drawMenu();
 };

@@ -99,8 +99,16 @@ void LevelManager::drawLevel()
             monsterGrid[i][j].drawShape();
         }
     }
+    for (int j = 0; j < numTower; j++)
+    {
+        for (int z = 0; z < towerGrid[j].numBall; z++)
+        {
+            towerGrid[j].drawBall();
+        }
+    }
     drawTower();
     myBase.drawShape();
+    
 }
 
 std::pair<int, int> LevelManager::closestToo() 
