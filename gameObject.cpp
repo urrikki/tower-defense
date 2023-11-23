@@ -324,11 +324,11 @@ void gameObject::OnCollisionExit(gameObject* object)
 
 }
 
-bool gameObject::isShapeOnScreen(sf::RenderWindow& window)
+bool gameObject::isShapeOnScreen()
 {
     // Obtenez les dimensions de la fen�tre
-    float windowWidth = static_cast<float>(window.getSize().x);
-    float windowHeight = static_cast<float>(window.getSize().y);
+    float windowWidth = 1280;
+    float windowHeight = 720;
 
     // Obtenez les coordonn�es de la shape
     float shapeLeft = shape->getPosition().x;
