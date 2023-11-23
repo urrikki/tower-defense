@@ -32,8 +32,6 @@ void GameManager::runGame()
     sound.setBuffer(buffer);
     sound.play();*/
     myAudio.playAudio(0);
-    myLevel.loadLevel();
-
 
     myLevel.loadLevel();
     while (WindowManager::getInstance().getRenderWindow().isOpen())
@@ -53,6 +51,7 @@ void GameManager::runGame()
         {
             update(elapsedTime);
             WindowManager::getInstance().draw(myLevel, myText);
+            std::cout <<myLevel.monsterGrid[0][0].life << std::endl;//probleme ici
             if (levelFinish())
             {
                 ++myLevel.nbrLevel;
