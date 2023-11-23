@@ -131,7 +131,7 @@ std::pair<int, int> LevelManager::closestToo()
 
     for (int i = 0; i < numColBrick; ++i) {
         for (int j = 0; j < numLigneBrick; ++j) {
-            if (&monsterGrid[i][j].isActive)
+            if (monsterGrid[i][j].isActive)
             {
                 float distance = calculateDistance(&monsterGrid[i][j], &myBase);
                 if (distance < minDistance) {
@@ -139,7 +139,7 @@ std::pair<int, int> LevelManager::closestToo()
                     closestI = i;
                     closestJ = j;
                 }
-            }   
+            }
         }
     }
 

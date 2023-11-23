@@ -37,7 +37,7 @@ void Monster::setFromType()
     {
         setLife(1);
         setDamage(7);
-        setSpeed(185);
+        setSpeed(120);
         setSizeRec(20, 20);
         
     }
@@ -45,7 +45,7 @@ void Monster::setFromType()
     {
         setLife(5);
         setDamage(2);
-        setSpeed(110);
+        setSpeed(80);
         setSizeRec(40, 40);
        
     }

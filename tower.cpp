@@ -55,7 +55,7 @@ void tower::focusOn(gameObject * obj)
             }   
         }  
     } 
-    std::cout << focusOnList.size() << std::endl;
+    
 }
 
 
@@ -68,11 +68,7 @@ float distance(float x1, float y1, float x2, float y2)
 
 void tower::shoot()
 {
-    if (focusOnList.empty())
-    {
-        ballGrid.clear();
-    }
-    else
+    if (!focusOnList.empty())
     {
         if (attack == true)
         {

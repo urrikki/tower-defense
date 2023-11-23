@@ -106,7 +106,7 @@ public:
     virtual void OnCollisionStay(gameObject* object);
     virtual void OnCollisionExit(gameObject* object);
 
-    bool isShapeOnScreen(sf::RenderWindow& window);
+    bool isShapeOnScreen();
 
     void setSizeRec(int w, int h);
 

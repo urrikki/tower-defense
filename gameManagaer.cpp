@@ -51,7 +51,6 @@ void GameManager::runGame()
         {
             update(elapsedTime);
             WindowManager::getInstance().draw(myLevel, myText);
-            std::cout <<myLevel.monsterGrid[0][0].life << std::endl;//probleme ici
             if (levelFinish())
             {
                 ++myLevel.nbrLevel;
@@ -112,13 +111,14 @@ void GameManager::processEvents()
     }
 }
 
-
+bool shoot = false;
 void GameManager::update(float elapsedTime)
 {  
     std::pair<int, int>closestMonster = myLevel.closestToo();
     
     for (int k = 0; k < myLevel.numTower; k++)
     {
+
         myLevel.towerGrid[k].focusOn(&myLevel.monsterGrid[closestMonster.first][closestMonster.second]);
 
         if (!myLevel.towerGrid[k].focusOnList.empty())
@@ -127,13 +127,26 @@ void GameManager::update(float elapsedTime)
             float dy = myLevel.towerGrid[k].focusOnList[0]->getY() - myLevel.towerGrid[k].getY();
 
             myLevel.towerGrid[k].angle = std::atan2(dy, dx) * 180 / M_PI;
+            if (myLevel.towerGrid[k].focusOnList[0]->isShapeOnScreen())
+            {
+                shoot = true;
+            }
+        }
+        else
+        {
+            shoot = false;
+        }
+        if (shoot)
+        {
             myLevel.towerGrid[k].setRotation(myLevel.towerGrid[k].angle);
-
             myLevel.towerGrid[k].canAttack(elapsedTime);
             myLevel.towerGrid[k].shoot();
-            for (int z = 0; z < myLevel.towerGrid[k].numBall; z++)
+        }
+        for (int z = 0; z < myLevel.towerGrid[k].numBall; z++)
+        {
+            myLevel.towerGrid[k].ballGrid[z].move(elapsedTime);
+            if (!myLevel.towerGrid[k].focusOnList.empty())
             {
-                myLevel.towerGrid[k].ballGrid[z].move(elapsedTime);
                 myLevel.towerGrid[k].ballGrid[z].manageCollide(myLevel.towerGrid[k].focusOnList[0]);
             }
         }
