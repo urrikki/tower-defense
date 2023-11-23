@@ -6,7 +6,6 @@
 #include <cmath>
 #include <string>
 
-#include "windowManager.h"
 
 GameManager::GameManager() 
 {
@@ -15,7 +14,9 @@ GameManager::GameManager()
 
     
     myText.addText(" Wave n" + std::to_string(wave), 1150, 630, sf::Color::White, 25);
- 
+    isPaused=false;
+    myAudio.loadAudio("audio/background.mp3");
+    //myAudio.loadAudio("audio/shoot.wav");
    /* if (!buffer.loadFromFile("audio/background.mp3"))
     {
         std::cout << "Erreur lors du chargement du son." << std::endl;
@@ -23,27 +24,43 @@ GameManager::GameManager()
 
 
 }
-
+ 
 
 void GameManager::runGame()
 {
     /*sf::Sound sound;
     sound.setBuffer(buffer);
     sound.play();*/
-    myLevel.loadLevel();
+    myAudio.playAudio(0);
 
     myLevel.loadLevel();
     while (WindowManager::getInstance().getRenderWindow().isOpen())
     {
        
         processEvents();
-        elapsedTime = clock.restart().asSeconds();
-        update(elapsedTime);
-        WindowManager::getInstance().draw(myLevel, myText);
-        if (levelFinish())
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-            ++myLevel.nbrLevel;
-            myLevel.loadLevel();
+            isPaused = !isPaused; // Inverse l'état de la pause
+            sf::sleep(sf::milliseconds(500)); 
+        }
+
+        elapsedTime = clock.restart().asSeconds();
+
+        if (!isPaused)
+        {
+            update(elapsedTime);
+            WindowManager::getInstance().draw(myLevel, myText);
+            std::cout <<myLevel.monsterGrid[0][0].life << std::endl;//probleme ici
+            if (levelFinish())
+            {
+                ++myLevel.nbrLevel;
+                myLevel.loadLevel();
+            }
+        }
+        else 
+        {
+            WindowManager::getInstance().drawPause(myLevel, myText);
         }
     }
     myLevel.~LevelManager();
@@ -65,7 +82,10 @@ void GameManager::processEvents()
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                myLevel.loadTower(1);
+                if (!isPaused)
+                {
+                    myLevel.loadTower(1);
+                }
             }
         }
     }
@@ -107,6 +127,6 @@ void GameManager::update(float elapsedTime)
             myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);
             myLevel.monsterGrid[i][j].die();
         }
-    }    
+    }
     
 }
