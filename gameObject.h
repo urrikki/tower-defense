@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <vector>
 
@@ -32,6 +33,7 @@ namespace sf
 {
     class Shape;
     class RenderWindow;
+    class Sprite;
 }
 
 
@@ -46,6 +48,7 @@ private:
 public:
     gameObject(int w, int h, float x, float y, sf::Color color);
     gameObject(float r, float x, float y, sf::Color color);
+    gameObject(int w, int h, float x, float y, const char* path);
 
     float w;
     float h;
@@ -65,6 +68,7 @@ public:
     sf::Shape* shape;
     ShapeType shapeType;
     sf::Color m_color;
+    sf::Sprite sprite;
 
     void setPosition(float x, float y);
     float getX();

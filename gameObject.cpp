@@ -50,7 +50,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
 }
 
 
-gameObject::gameObject(float r, float x, float y, sf::Color color)
+gameObject::gameObject( float r, float x, float y, sf::Color color)
 {
     this->x = x;
     this->y = y;
@@ -75,6 +75,54 @@ gameObject::gameObject(float r, float x, float y, sf::Color color)
     isActive = true;
     sideForRebound = None;
 }
+
+gameObject::gameObject(int w, int h, float x, float y, const char* path)
+{
+    this->w = w;
+    this->h = h;
+    this->x = x;
+    this->y = y;
+    
+    Texture texture;
+    if (!texture.loadFromFile(path))
+    {
+        std::cout << "failed" << std::endl;
+
+        system("pause");
+
+    }
+
+    sprite.setTexture(texture);
+    
+    sprite.setTextureRect(IntRect(0, 0, w, h));
+
+
+    shapeType = NoShape;
+    orientationX = 0;
+    orientationY = 0;
+    damage = 0;
+    speed = (0);
+    attackCooldown = 2.0f;
+    attackTimer = 0.0f;
+    maxlife = 0;
+    attack = false;
+
+    shape = new RectangleShape(sf::Vector2f(w, h));
+    if (w == h)
+    {
+        shapeType = Square;
+    }
+    else
+    {
+        shapeType = Rectangle;
+    }
+
+
+    Collide = NoCollide;
+    sideForRebound = None;
+    isActive = true;
+}
+
 
 
 void gameObject::setSpeed(float speed)
