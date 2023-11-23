@@ -90,15 +90,24 @@ void LevelManager::loadLevel() {
 }
 
 
-void LevelManager::drawLevel() 
+void LevelManager::drawLevel()
 {
-    for (int i = 0; i < numColBrick; ++i) 
+    // Dessiner le carré blanc
+    sf::RectangleShape whiteSquare(sf::Vector2f(50.0f, 50.0f));
+    whiteSquare.setFillColor(sf::Color::White);
+    whiteSquare.setPosition(600.0f, 500.0f);
+    WindowManager::getInstance().getRenderWindow().draw(whiteSquare);
+
+    // Dessiner les monstres
+    for (int i = 0; i < numColBrick; ++i)
     {
-        for (int j = 0; j < numLigneBrick; ++j) 
+        for (int j = 0; j < numLigneBrick; ++j)
         {
             monsterGrid[i][j].drawShape();
         }
     }
+
+    // Dessiner les ball des tours
     for (int j = 0; j < numTower; j++)
     {
         for (int z = 0; z < towerGrid[j].numBall; z++)
@@ -106,9 +115,12 @@ void LevelManager::drawLevel()
             towerGrid[j].drawBall();
         }
     }
+
+    // Dessiner les tours
     drawTower();
+
+    // Dessiner la base
     myBase.drawShape();
-    
 }
 
 std::pair<int, int> LevelManager::closestToo() 

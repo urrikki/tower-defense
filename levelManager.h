@@ -3,6 +3,7 @@
 #include "tower.h"
 #include "monster.h"
 #include "base.h"
+#include "Power.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>

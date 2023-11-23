@@ -35,5 +35,5 @@ private:
     Monster myMonster;
     LevelManager myLevel;
     TextManager myText;
-    
+    Power myPower;
 };

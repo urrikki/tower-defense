@@ -1,12 +1,11 @@
 #define _USE_MATH_DEFINES
 
 #include "gameManager.h"
-
+#include "windowManager.h"
 #include<iostream>
 #include <cmath>
 #include <string>
 
-#include "windowManager.h"
 
 GameManager::GameManager() 
 {
@@ -65,25 +64,55 @@ void GameManager::processEvents()
         {
             if (event.mouseButton.button == sf::Mouse::Left)
             {
-                myLevel.loadTower(1);
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(WindowManager::getInstance().getRenderWindow());
+
+                if (event.mouseButton.x >= 600 && event.mouseButton.y >= 500 && event.mouseButton.x <= 650 && event.mouseButton.y <= 550)
+                {
+                    myPower.activatePower();
+                }
+                else 
+                {
+                    myLevel.loadTower(1);
+                }
+
             }
         }
     }
+
+    if (myPower.isActive())
+    {
+        for (int j = 0; j < myLevel.numLigneBrick; ++j)
+        {
+            for (int i = 0; i < myLevel.numColBrick; ++i)
+            {
+                myLevel.monsterGrid[i][j].setLife(0);
+                myLevel.monsterGrid[i][j].die();
+
+            }
+        }
+        myPower.deactivatePower();
+    }
 }
 
+
 void GameManager::update(float elapsedTime)
-{  
-    for (int j = 0; j < myLevel.numLigneBrick; ++j) 
+{
+    // Traitement des monstres
+    for (int j = 0; j < myLevel.numLigneBrick; ++j)
     {
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
             myLevel.monsterGrid[i][j].move(elapsedTime);
             myLevel.monsterGrid[i][j].canAttack(elapsedTime);
             myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);
-            std::pair<int , int>closestMonster = myLevel.closestToo();    
+            myLevel.monsterGrid[i][j].die();
+
+            std::pair<int, int>closestMonster = myLevel.closestToo();
+
             for (int k = 0; k < myLevel.numTower; k++)
             {
                 myLevel.towerGrid[k].focusOn(&myLevel.monsterGrid[closestMonster.first][closestMonster.second]);
+
                 if (!myLevel.towerGrid[k].focusOnList.empty())
                 {
                     float dx = myLevel.towerGrid[k].focusOnList[0]->getX() - myLevel.towerGrid[k].getX();
@@ -91,10 +120,10 @@ void GameManager::update(float elapsedTime)
 
                     myLevel.towerGrid[k].angle = std::atan2(dy, dx) * 180 / M_PI;
                     myLevel.towerGrid[k].setRotation(myLevel.towerGrid[k].angle);
-
                     myLevel.towerGrid[k].canAttack(elapsedTime);
                     myLevel.towerGrid[k].shoot(elapsedTime, dx, dy);
                 }
+
                 for (int z = 0; z < myLevel.towerGrid[k].numBall; z++)
                 {
                     myLevel.towerGrid[k].ballGrid[z].move(elapsedTime);
@@ -102,6 +131,7 @@ void GameManager::update(float elapsedTime)
                 }
             }
         }
-    }    
-    
+    }
+
+
 }

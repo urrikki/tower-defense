@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="base.cpp" />
-    <ClCompile Include="boss.cpp" />
     <ClCompile Include="gameManagaer.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="levelManager.cpp" />
@@ -146,7 +145,6 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="base.h" />
-    <ClInclude Include="boss.h" />
     <ClInclude Include="gameManager.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="levelManager.h" />

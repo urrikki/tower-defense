@@ -297,7 +297,6 @@ void gameObject::manageCollide(gameObject* objectTest)
 
             OnCollisionExit(objectTest);
             bAlreadyHasCollision = false;
-            die();
         }
     }
 }
@@ -438,6 +437,6 @@ void gameObject::die()
 {
     if (maxlife <= life)
     {
-        isActive == false;
+        isActive = false;
     }
 }
