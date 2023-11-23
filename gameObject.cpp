@@ -89,9 +89,12 @@ float gameObject::getSpeed()
 
 void gameObject::setPosition(float x, float y)
 {
-    this->x = x;
-    this->y = y;
-    shape->setPosition(x, y);
+    if (isActive)
+    {
+        this->x = x;
+        this->y = y;
+        shape->setPosition(x, y);
+    }   
 };
 
 void gameObject::setSizeRec(int w, int h)
@@ -177,9 +180,12 @@ float gameObject::getOrientationY()
 
 void gameObject::move(float elapsedTimeF)
 {
-    float newX = x + (speed * (elapsedTimeF * orientationX));
-    float newY = y + (speed * (elapsedTimeF * orientationY));
-    setPosition(newX, newY);
+    if (isActive)
+    {
+        float newX = x + (speed * (elapsedTimeF * orientationX));
+        float newY = y + (speed * (elapsedTimeF * orientationY));
+        setPosition(newX, newY);
+    }  
 }
 
 
@@ -297,7 +303,7 @@ void gameObject::manageCollide(gameObject* objectTest)
 
             OnCollisionExit(objectTest);
             bAlreadyHasCollision = false;
-            die();
+            
         }
     }
 }
@@ -438,6 +444,6 @@ void gameObject::die()
 {
     if (maxlife <= life)
     {
-        isActive == false;
+        isActive = false;
     }
 }

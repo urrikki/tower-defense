@@ -38,17 +38,26 @@ void tower::setType(int type)
     this->type = type;
 }
 
-void tower::focusOn(gameObject* obj)
+
+void tower::focusOn(gameObject * obj)
 {
-    if (focusOnList.empty())
+    if (focusOnList.empty() && obj->isActive)
     {
         focusOnList.push_back(obj);
     }
-    else if (focusOnList[0]->maxlife <= focusOnList[0]->life)
-    {
-        focusOnList.clear();
-    }
+    else 
+    {   
+        if (!focusOnList.empty())
+        {
+            if (!focusOnList[0]->isActive)
+            {
+                focusOnList.erase(focusOnList.begin());   
+            }   
+        }  
+    } 
+    std::cout << focusOnList.size() << std::endl;
 }
+
 
 float distance(float x1, float y1, float x2, float y2)
 {
@@ -57,27 +66,20 @@ float distance(float x1, float y1, float x2, float y2)
     return std::sqrt(dx * dx + dy * dy);
 }
 
-void tower::shoot(float elapsedTime , float dx , float dy)
+void tower::shoot()
 {
-    if (attackTimer > 0.0f) {
-        attackTimer -= elapsedTime;
-        if (attackTimer < 0.0f) {
-            attackTimer = 0.0f;
-        }
-    }
-
-    if (attackTimer == 0.0f) {
-        attack = true;
-        attackTimer = attackCooldown;
-    }
-    else if (attack == true)
+    if (focusOnList.empty())
     {
-        if (!focusOnList.empty())
+        ballGrid.clear();
+    }
+    else
+    {
+        if (attack == true)
         {
-            this->numBall++;
+
+            numBall++;
             ballGrid.resize(numBall);
             ballGrid[numBall - 1] = Ball();
-
 
             // Calculate the time of flight for the projectile
             float timeOfFlight = distance(getX(), getY(), focusOnList[0]->getX(), focusOnList[0]->getY()) / ballGrid[numBall - 1].getSpeed();
@@ -98,6 +100,7 @@ void tower::shoot(float elapsedTime , float dx , float dy)
             ballGrid[numBall - 1].setSpeed(500);
             ballGrid[numBall - 1].setOrientation(targetDx, targetDy);
             ballGrid[numBall - 1].setPosition(getX(), getY());
+
             float orientationDistance = std::sqrt(targetDx * targetDx + targetDy * targetDy);
             if (orientationDistance != 0)
             {

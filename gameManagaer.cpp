@@ -73,34 +73,39 @@ void GameManager::processEvents()
 
 void GameManager::update(float elapsedTime)
 {  
+    std::pair<int, int>closestMonster = myLevel.closestToo();
+    
+    for (int k = 0; k < myLevel.numTower; k++)
+    {
+        myLevel.towerGrid[k].focusOn(&myLevel.monsterGrid[closestMonster.first][closestMonster.second]);
+
+        if (!myLevel.towerGrid[k].focusOnList.empty())
+        {
+            float dx = myLevel.towerGrid[k].focusOnList[0]->getX() - myLevel.towerGrid[k].getX();
+            float dy = myLevel.towerGrid[k].focusOnList[0]->getY() - myLevel.towerGrid[k].getY();
+
+            myLevel.towerGrid[k].angle = std::atan2(dy, dx) * 180 / M_PI;
+            myLevel.towerGrid[k].setRotation(myLevel.towerGrid[k].angle);
+
+            myLevel.towerGrid[k].canAttack(elapsedTime);
+            myLevel.towerGrid[k].shoot();
+            for (int z = 0; z < myLevel.towerGrid[k].numBall; z++)
+            {
+                myLevel.towerGrid[k].ballGrid[z].move(elapsedTime);
+                myLevel.towerGrid[k].ballGrid[z].manageCollide(myLevel.towerGrid[k].focusOnList[0]);
+            }
+        }
+    }
+
     for (int j = 0; j < myLevel.numLigneBrick; ++j) 
     {
         for (int i = 0; i < myLevel.numColBrick; ++i)
         {
+            
             myLevel.monsterGrid[i][j].move(elapsedTime);
             myLevel.monsterGrid[i][j].canAttack(elapsedTime);
             myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);
-            std::pair<int , int>closestMonster = myLevel.closestToo();    
-            for (int k = 0; k < myLevel.numTower; k++)
-            {
-                myLevel.towerGrid[k].focusOn(&myLevel.monsterGrid[closestMonster.first][closestMonster.second]);
-                if (!myLevel.towerGrid[k].focusOnList.empty())
-                {
-                    float dx = myLevel.towerGrid[k].focusOnList[0]->getX() - myLevel.towerGrid[k].getX();
-                    float dy = myLevel.towerGrid[k].focusOnList[0]->getY() - myLevel.towerGrid[k].getY();
-
-                    myLevel.towerGrid[k].angle = std::atan2(dy, dx) * 180 / M_PI;
-                    myLevel.towerGrid[k].setRotation(myLevel.towerGrid[k].angle);
-
-                    myLevel.towerGrid[k].canAttack(elapsedTime);
-                    myLevel.towerGrid[k].shoot(elapsedTime, dx, dy);
-                }
-                for (int z = 0; z < myLevel.towerGrid[k].numBall; z++)
-                {
-                    myLevel.towerGrid[k].ballGrid[z].move(elapsedTime);
-                    myLevel.towerGrid[k].ballGrid[z].manageCollide(&myLevel.monsterGrid[i][j]);
-                }
-            }
+            myLevel.monsterGrid[i][j].die();
         }
     }    
     

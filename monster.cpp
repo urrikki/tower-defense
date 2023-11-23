@@ -29,12 +29,17 @@ void Monster::OnCollisionExit(gameObject* object)
 
 void Monster::setFromType()
 {
-    if (type == 1) //troll assasin
+    if (type == 0)
+    {
+        isActive = false;
+    }
+    else if (type == 1) //troll assasin
     {
         setLife(1);
         setDamage(7);
         setSpeed(185);
         setSizeRec(20, 20);
+        
     }
     else if (type == 2) //troll tank
     {
@@ -42,6 +47,7 @@ void Monster::setFromType()
         setDamage(2);
         setSpeed(110);
         setSizeRec(40, 40);
+       
     }
 }
 
