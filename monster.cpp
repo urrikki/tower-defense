@@ -5,7 +5,7 @@
 
 using namespace sf;
 
-Monster::Monster() : gameObject(70, 20, -20, 360, "asset/monster.jpg")
+Monster::Monster() : gameObject(70, 20, 50, 360, "asset/poule.jpg")
 {
     type = 1;
     setOrientation(1, 0);

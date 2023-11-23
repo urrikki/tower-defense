@@ -82,19 +82,18 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
     this->h = h;
     this->x = x;
     this->y = y;
+    m_color = sf::Color::Red;
+
     
-    Texture texture;
-    if (!texture.loadFromFile(path))
+    
+    std::cout << path << std::endl;
+    if (!texture.loadFromFile("asset/poule.jpg"))
     {
         std::cout << "failed" << std::endl;
 
         system("pause");
 
     }
-
-    sprite.setTexture(texture);
-    
-    sprite.setTextureRect(IntRect(0, 0, w, h));
 
 
     shapeType = NoShape;
@@ -107,8 +106,14 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
     maxlife = 0;
     attack = false;
 
+
     shape = new RectangleShape(sf::Vector2f(w, h));
-    if (w == h)
+
+
+    sprite.setTexture(texture);
+    sprite.setScale(sf::Vector2f(sprite.getScale().x / 10, sprite.getScale().y / 10));
+
+    if (this->w == this->h)
     {
         shapeType = Square;
     }
@@ -116,7 +121,9 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
     {
         shapeType = Rectangle;
     }
-
+    
+    shape->setPosition(x, y);
+    shape->setFillColor(m_color);
 
     Collide = NoCollide;
     sideForRebound = None;
@@ -140,6 +147,7 @@ void gameObject::setPosition(float x, float y)
     this->x = x;
     this->y = y;
     shape->setPosition(x, y);
+    sprite.setPosition(x, y);
 };
 
 void gameObject::setSizeRec(int w, int h)
@@ -408,6 +416,13 @@ void gameObject::drawShape()
     if (isActive == true)
     {
         WindowManager::getInstance().getRenderWindow().draw(*shape);
+        if (sprite.getTexture() != NULL)
+        {
+            sprite.setTexture(texture);
+            WindowManager::getInstance().getRenderWindow().draw(sprite);
+        }
+
+
         if (maxlife != 0)
         {
             drawHealthBar(WindowManager::getInstance().getRenderWindow());

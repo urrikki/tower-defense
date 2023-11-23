@@ -69,6 +69,7 @@ public:
     ShapeType shapeType;
     sf::Color m_color;
     sf::Sprite sprite;
+    sf::Texture texture;
 
     void setPosition(float x, float y);
     float getX();
