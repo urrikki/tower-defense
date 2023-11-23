@@ -42,6 +42,31 @@ void WindowManager::draw(LevelManager myLevel, TextManager myText)
     myLevel.drawLevel();
     myText.drawText();
     WindowManager::getInstance().getRenderWindow().display();
+
+}
+
+void WindowManager::drawPause(LevelManager myLevel, TextManager myText)
+{
+    WindowManager::getInstance().getRenderWindow().clear();
+    myLevel.drawLevel();
+    myText.drawText();
+ 
+    sf::RectangleShape rect(sf::Vector2f(200, 100));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineThickness(8);
+    rect.setOutlineColor(sf::Color::White);
+    rect.setPosition((WindowManager::getInstance().getRenderWindow().getSize().x - rect.getGlobalBounds().width) / 2, (WindowManager::getInstance().getRenderWindow().getSize().y - rect.getGlobalBounds().height) / 2);
+    
+    TextManager pause;
+    pause.addText("PAUSE", (windowSize.x - 130) / 2, (windowSize.y - 90) / 2, sf::Color::White, 50);
+    
+    WindowManager::getInstance().getRenderWindow().draw(rect);
+    for (auto& text : pause.texts)
+    {
+        WindowManager::getInstance().getRenderWindow().draw(text);
+    }
+
+    WindowManager::getInstance().getRenderWindow().display();
 }
 
 void WindowManager::drawMenu()
