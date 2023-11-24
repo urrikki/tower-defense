@@ -23,6 +23,7 @@ private:
     void update(float elapsedTime);
     std::string gameScore();
     //void draw();
+    int money;
 
 private:
 

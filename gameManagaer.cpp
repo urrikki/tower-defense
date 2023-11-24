@@ -15,7 +15,8 @@ GameManager::GameManager()
     myText.addText(" Wave n" + std::to_string(wave), 1150, 630, sf::Color::White, 25);
     isPaused = false;
     myAudio.loadAudio("audio/background_2.mp3");
-
+    money = 100;
+    myText.addText(" Money" + std::to_string(money), 100, 630, sf::Color::White, 25);
 }
 
 
@@ -73,7 +74,7 @@ bool GameManager::levelFinish()
 
 void GameManager::processEvents()
 {
-    myText.addText("Buy", 300 + (myLevel.numTower + 1 * 100), 20, sf::Color::White, 20);
+    myText.addText("Buy", 100 , 20, sf::Color::White, 20);
     sf::Event event;
     while (WindowManager::getInstance().getRenderWindow().pollEvent(event))
     {
@@ -91,30 +92,42 @@ void GameManager::processEvents()
                 }
                 else
                 {
-                    if (mousePosition.x >= 300 + (myLevel.numTower + 1 * 100) && mousePosition.y >= 20 && mousePosition.x <= 300 + (myLevel.numTower + 1 * 100) + 20 && mousePosition.y <= 40)
+                    if (mousePosition.x >= 100  && mousePosition.y >= 20 && mousePosition.x <= 120 + 20 && mousePosition.y <= 40)
                     {
-                        myText.addText("dm", 300 + (myLevel.numTower + 1 * 100) - 30, 50, sf::Color::White, 20);
-                        myText.addText("gl", 300 + (myLevel.numTower + 1 * 100), 50, sf::Color::White, 20);
-                        myText.addText("bk", 300 + (myLevel.numTower + 1 * 100) + 30, 50, sf::Color::White, 20);
+                        myText.addText("dm", 100 - 30, 50, sf::Color::White, 20);
+                        myText.addText("gl", 100, 50, sf::Color::White, 20);
+                        myText.addText("bk", 100 + 30, 50, sf::Color::White, 20);
                     }
                     else
                     {
                         // Si le clic est en dehors de la zone "Buy", vérifiez les choix "dm gl bk"
                         // Si l'un de ces choix est cliqué, effectuez l'achat approprié
-                        if (mousePosition.x >= 300 + (myLevel.numTower + 1 * 100) - 30 && mousePosition.x <= (300 + (myLevel.numTower + 1 * 100) - 30 + 20) &&
-                            mousePosition.y >= 50 && mousePosition.y <= 70)
+                        if ((mousePosition.x >= 100 - 30 && mousePosition.x <= 100 - 30 + 20) &&
+                            (mousePosition.y >= 50 && mousePosition.y <= 70))
                         {
-                            myLevel.loadTower(1);  // Choix "dm"
+                            if (money >= 100)
+                            {
+                                myLevel.loadTower(1);  // Choix "dm"
+                                money - 100;
+                            }    
                         }
-                        else if (mousePosition.x >= 300 + (myLevel.numTower + 1 * 100) && mousePosition.x <= 300 + (myLevel.numTower + 1 * 100) + 20 &&
+                        else if (mousePosition.x >= 100 && mousePosition.x <= 100 + 20 &&
                             mousePosition.y >= 50 && mousePosition.y <= 70)
                         {
-                            myLevel.loadTower(2);  // Choix "gl"
+                            if (money >= 125)
+                            {
+                                myLevel.loadTower(2);  // Choix "gl"
+                                money - 125;
+                            }
                         }
-                        else if (mousePosition.x >= 300 + (myLevel.numTower + 1 * 100) + 30 && mousePosition.x <= 300 + (myLevel.numTower + 1 * 100) + 50 &&
+                        else if (mousePosition.x >= 100 + 30 && mousePosition.x <= 100 + 50 &&
                             mousePosition.y >= 50 && mousePosition.y <= 70)
                         {
-                            myLevel.loadTower(3);  // Choix "bk"
+                            if (money >= 150)
+                            {
+                                myLevel.loadTower(3);  // Choix "bk"
+                                money - 150;
+                            }
                         }
 
                         // Effacez les choix après l'achat
@@ -149,7 +162,7 @@ void GameManager::update(float elapsedTime)
 {
     winORloose();
     myLevel.startRound();
-    //myText.setContent(0 , " Wave n" + std::to_string(wave));
+    myText.setContent(0 , " Wave n" + std::to_string(wave));
     std::pair<int, int>closestMonster = myLevel.closestToo();
 
     for (int k = 0; k < myLevel.numTower; k++)
@@ -199,6 +212,14 @@ void GameManager::update(float elapsedTime)
             if (myLevel.monsterGrid[i][j].die())
             {
                 myLevel.monsterGrid[i][j].state = Dead;
+                if (myLevel.monsterGrid[i][j].type == 1)
+                {
+                    money = money + 10;
+                }
+                else if (myLevel.monsterGrid[i][j].type == 2)
+                {
+                    money = money + 20;
+                }
             }
         }
     }
