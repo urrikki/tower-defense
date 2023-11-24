@@ -48,7 +48,7 @@ private:
 public:
     gameObject(int w, int h, float x, float y, sf::Color color);
     gameObject(float r, float x, float y, sf::Color color);
-    gameObject(int w, int h, float x, float y, const char* path);
+    gameObject(int w, int h, float x, float y, const char* path, float factorValue = 1.f);
 
     float w;
     float h;

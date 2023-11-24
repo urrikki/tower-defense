@@ -76,7 +76,7 @@ gameObject::gameObject( float r, float x, float y, sf::Color color)
     sideForRebound = None;
 }
 
-gameObject::gameObject(int w, int h, float x, float y, const char* path)
+gameObject::gameObject(int w, int h, float x, float y, const char* path, float factorValue)
 {
     this->w = w;
     this->h = h;
@@ -86,14 +86,14 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
 
     
     
-    std::cout << path << std::endl;
-    if (!texture.loadFromFile("asset/poule.jpg"))
+    if (!texture.loadFromFile(path))
     {
         std::cout << "failed" << std::endl;
 
         system("pause");
-
     }
+
+    texture.setSmooth(false);
 
 
     shapeType = NoShape;
@@ -109,9 +109,9 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
 
     shape = new RectangleShape(sf::Vector2f(w, h));
 
-
     sprite.setTexture(texture);
-    sprite.setScale(sf::Vector2f(sprite.getScale().x / 10, sprite.getScale().y / 10));
+    sprite.setScale(sf::Vector2f(sprite.getScale().x * factorValue, sprite.getScale().y * factorValue));
+    
 
     if (this->w == this->h)
     {
@@ -122,6 +122,7 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path)
         shapeType = Rectangle;
     }
     
+    sprite.setPosition(x, y);
     shape->setPosition(x, y);
     shape->setFillColor(m_color);
 
@@ -408,6 +409,7 @@ void gameObject::setRotation(float angle)
 {
     this->angle = angle;
     shape->setRotation(angle);
+    sprite.setRotation(angle);
 };
 
 // --Draw
@@ -415,11 +417,14 @@ void gameObject::drawShape()
 {
     if (isActive == true)
     {
-        WindowManager::getInstance().getRenderWindow().draw(*shape);
         if (sprite.getTexture() != NULL)
         {
             sprite.setTexture(texture);
             WindowManager::getInstance().getRenderWindow().draw(sprite);
+        }
+        else
+        {
+            WindowManager::getInstance().getRenderWindow().draw(*shape);
         }
 
 
