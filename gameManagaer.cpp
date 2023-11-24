@@ -195,14 +195,19 @@ void GameManager::update(float elapsedTime)
         for (int j = 0; j < myLevel.numColBrick; ++j)
         {
 
-            myLevel.monsterGrid[i][j].move(elapsedTime);
-            myLevel.monsterGrid[i][j].canAttack(elapsedTime);
+            myLevel.monsterGrid[i][j].stateMonster(elapsedTime);
             myLevel.monsterGrid[i][j].manageCollide(&myLevel.myBase);
-            myLevel.monsterGrid[i][j].die();
+            if (myLevel.monsterGrid[i][j].die())
+            {
+                myLevel.monsterGrid[i][j].state = Dead;
+            }
         }
     }
 
-    myLevel.myBase.die();
+    if (myLevel.myBase.die())
+    {
+        myLevel.myBase.isActive = false;
+    }
 }
 
 void GameManager::winORloose()

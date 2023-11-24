@@ -3,6 +3,16 @@
 #include <SFML/Graphics/Color.hpp>
 #include <vector>
 
+typedef enum stateMonster
+{
+    Move,
+    MoveB,
+    Standing,
+    Hitting,
+    Dead,
+};
+
+
 typedef enum CollideType
 {
     NoCollide,
@@ -88,7 +98,7 @@ public:
     CollideSide getCollideSide(gameObject* objectTest);
 
     ShapeType getShapeType();
-
+    stateMonster state;
 
     float orientationX;
     float orientationY;
@@ -130,5 +140,7 @@ public:
 
     void drawHealthBar(sf::RenderWindow& window);
 
-    void die();
+    bool die();
+    
+    void stateMonster(float elapstime);
 };

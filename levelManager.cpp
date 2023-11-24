@@ -109,6 +109,7 @@ void LevelManager::startRound()
                 if (monsterGrid[round - 1][j].type != 0)
                 {
                     monsterGrid[round - 1][j].isActive = true;
+                    monsterGrid[round - 1][j].state = Move;
                 }
             }
         }

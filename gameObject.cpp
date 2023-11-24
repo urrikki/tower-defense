@@ -440,10 +440,38 @@ void gameObject::drawHealthBar(RenderWindow& window)
 }
 
 
-void gameObject::die()
+bool gameObject::die()
 {
     if (maxlife <= life)
     {
+        return true;
+    }
+    return false;
+}
+
+void gameObject::stateMonster(float elapstime)
+{
+    switch (state) {
+    case stateMonster::Move:
+        move(elapstime);
+        break;
+
+    case stateMonster::MoveB:
+        setOrientation(-1, 0);
+        break;
+
+    case stateMonster::Standing:
+        setSpeed(0);
+        break;
+
+    case stateMonster::Hitting:
+        setSpeed(0);
+        canAttack(elapstime);
+        break;
+
+    case stateMonster::Dead:
         isActive = false;
+        break;
+
     }
 }

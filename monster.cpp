@@ -13,7 +13,7 @@ Monster::Monster() : gameObject(70, 20, -20, 360, Color::Cyan)
 
 void Monster::OnCollisionEnter(gameObject* objectTest)
 {
-    setSpeed(0);
+    this->state = Hitting;
     performAttack(objectTest);
     if (type == 3)
     {
@@ -24,6 +24,7 @@ void Monster::OnCollisionEnter(gameObject* objectTest)
 
 void Monster::OnCollisionStay(gameObject* object)
 {
+    this->state = Hitting;
     performAttack(object);
     if (type == 3)
     {
@@ -33,7 +34,7 @@ void Monster::OnCollisionStay(gameObject* object)
 
 void Monster::OnCollisionExit(gameObject* object)
 {
-
+    this->state = Move;
 }
 
 void Monster::setFromType()
