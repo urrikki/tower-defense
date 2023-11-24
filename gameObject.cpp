@@ -105,6 +105,7 @@ gameObject::gameObject(int w, int h, float x, float y, const char* path, float f
     attackCooldown = 2.0f;
     attackTimer = 0.0f;
     maxlife = 0;
+    life = 0;
     attack = false;
 
 

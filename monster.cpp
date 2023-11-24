@@ -25,11 +25,15 @@ void Monster::OnCollisionEnter(gameObject* objectTest)
 void Monster::OnCollisionStay(gameObject* object)
 {
     this->state = Hitting;
-    performAttack(object);
-    if (type == 3)
+    if (attack)
     {
-        this->life = this->life - 2;
+        if (type == 3)
+        {
+            this->life = this->life - 2;
+        }
     }
+    performAttack(object);
+     
 }
 
 void Monster::OnCollisionExit(gameObject* object)

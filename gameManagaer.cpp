@@ -162,7 +162,7 @@ void GameManager::update(float elapsedTime)
 {
     winORloose();
     myLevel.startRound();
-    myText.setContent(0 , " Wave n" + std::to_string(wave));
+    //myText.setContent(0, " Wave n" + std::to_string(wave));
     std::pair<int, int>closestMonster = myLevel.closestToo();
 
     for (int k = 0; k < myLevel.numTower; k++)
