@@ -12,10 +12,9 @@ GameManager::GameManager()
     wave = myLevel.round;
     sf::RenderWindow& window = WindowManager::getInstance().getRenderWindow();
 
-
     myText.addText(" Wave n" + std::to_string(wave), 1150, 630, sf::Color::White, 25);
     isPaused = false;
-    myAudio.loadAudio("audio/background.mp3");
+    myAudio.loadAudio("audio/background_2.mp3");
 
 }
 
