@@ -3,6 +3,7 @@
 #include "tower.h"
 #include "monster.h"
 #include "base.h"
+#include "Power.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -22,13 +23,19 @@ public:
     std::vector<tower> towerGrid;
     int numTower;
 
+
     void loadTower(int type);
     void drawTower();
 
     int nbrLevel;
+    int round;
+    bool finish;
 
-    std::pair<int, int> closestToo() ;
-    float calculateDistance(gameObject* obj1, gameObject* obj2) ;
+    bool roundFinish();
+    void startRound();
+
+    std::pair<int, int> closestToo();
+    float calculateDistance(gameObject* obj1, gameObject* obj2);
 
     base myBase;
 };

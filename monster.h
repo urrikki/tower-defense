@@ -4,7 +4,7 @@
 class Monster : public gameObject
 {
 public:
-    
+
     int type;
 
     Monster();

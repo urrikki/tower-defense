@@ -5,7 +5,7 @@
 class tower : public gameObject
 {
 public:
-    
+
     tower();
 
     int type;

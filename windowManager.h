@@ -42,4 +42,7 @@ public:
     void draw(LevelManager myLevel, TextManager myText);
     void drawPause(LevelManager myLevel, TextManager myText);
     void drawMenu();
+    void drawLoose(LevelManager myLevel, TextManager myText);
+    void drawWin(LevelManager myLevel, TextManager myText);
+
 };

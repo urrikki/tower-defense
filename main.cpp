@@ -3,10 +3,10 @@
 
 int main()
 {
+
     bool launchGame = false;
     while (WindowManager::getInstance().getMenuWindow().isOpen())
     {
-
         WindowManager::getInstance().drawMenu();
         sf::Event event;
         while (WindowManager::getInstance().getMenuWindow().pollEvent(event))
@@ -27,8 +27,6 @@ int main()
                 }
             }
         }
-
-
     }
     if (launchGame)
     {

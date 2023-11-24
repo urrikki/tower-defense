@@ -16,6 +16,9 @@ LevelManager::LevelManager() {
     numTower = 0;
 
     nbrLevel = 1;
+
+    round = 0;
+    finish = false;
 }
 
 LevelManager::~LevelManager() {
@@ -31,7 +34,7 @@ void LevelManager::loadTower(int type)
     towerGrid[numTower - 1].setPosition(300 + (numTower * 100), 20);
     towerGrid[numTower - 1].setType(type);
     towerGrid[numTower - 1].setFromType();
-    
+
 }
 
 void LevelManager::drawTower()
@@ -69,7 +72,7 @@ void LevelManager::loadLevel() {
     levelFile.clear();
     levelFile.seekg(0, std::ios::beg);
 
-    monsterGrid.resize(numColBrick, std::vector<Monster>(numLigneBrick));
+    monsterGrid.resize(numLigneBrick, std::vector<Monster>(numColBrick));
 
     // Lire les donn�es du fichier et initialiser la grille
     for (int j = 0; j < numLigneBrick; ++j) {
@@ -78,10 +81,11 @@ void LevelManager::loadLevel() {
         for (int i = 0; i < numColBrick; ++i) {
             if (i < static_cast<int>(line.length())) {
                 int type = line[i] - '0';  // Convertir le caract�re en entier
-                monsterGrid[i][j] = Monster();
-                monsterGrid[i][j].setPosition(-100 - (i * 90.0), monsterGrid[i][j].y);
-                monsterGrid[i][j].setType(type);
-                monsterGrid[i][j].setFromType();
+                monsterGrid[j][i] = Monster();
+                monsterGrid[j][i].setPosition(-600 - (i * 90.0), monsterGrid[j][i].y);
+                monsterGrid[j][i].setType(type);
+                monsterGrid[j][i].setFromType();
+                monsterGrid[j][i].isActive = false;
             }
         }
     }
@@ -89,16 +93,65 @@ void LevelManager::loadLevel() {
     levelFile.close();
 }
 
-
-void LevelManager::drawLevel() 
+void LevelManager::startRound()
 {
-    for (int i = 0; i < numColBrick; ++i) 
+    if (!roundFinish())
     {
-        for (int j = 0; j < numLigneBrick; ++j) 
+        ++round;
+        if (round > numLigneBrick)
         {
-            monsterGrid[i][j].drawShape();
+            finish = true;
+        }
+        else
+        {
+            for (int j = 0; j < numColBrick; ++j)
+            {
+                if (monsterGrid[round - 1][j].type != 0)
+                {
+                    monsterGrid[round - 1][j].isActive = true;
+                }
+            }
         }
     }
+}
+
+bool LevelManager::roundFinish()
+{
+    if (!finish)
+    {
+        if (round != 0)
+        {
+            for (int j = 0; j < numColBrick; ++j)
+            {
+                if (monsterGrid[round - 1][j].isActive)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+void LevelManager::drawLevel()
+{
+    // Dessiner le carré blanc
+    sf::RectangleShape whiteSquare(sf::Vector2f(50.0f, 50.0f));
+    whiteSquare.setFillColor(sf::Color::White);
+    whiteSquare.setPosition(600.0f, 500.0f);
+    WindowManager::getInstance().getRenderWindow().draw(whiteSquare);
+
+    // Dessiner les monstres
+
+    if (!finish)
+    {
+        for (int j = 0; j < numColBrick; ++j)
+        {
+            monsterGrid[round - 1][j].drawShape();
+        }
+    }
+
+    // Dessiner les ball des tours
     for (int j = 0; j < numTower; j++)
     {
         for (int z = 0; z < towerGrid[j].numBall; z++)
@@ -106,9 +159,12 @@ void LevelManager::drawLevel()
             towerGrid[j].drawBall();
         }
     }
+
+    // Dessiner les tours
     drawTower();
+
+    // Dessiner la base
     myBase.drawShape();
-    
 }
 
 std::pair<int, int> LevelManager::closestToo()
@@ -117,8 +173,8 @@ std::pair<int, int> LevelManager::closestToo()
     int closestI = -1;
     int closestJ = -1;
 
-    for (int i = 0; i < numColBrick; ++i) {
-        for (int j = 0; j < numLigneBrick; ++j) {
+    for (int i = 0; i < numLigneBrick; ++i) {
+        for (int j = 0; j < numColBrick; ++j) {
             if (monsterGrid[i][j].isActive)
             {
                 float distance = calculateDistance(&monsterGrid[i][j], &myBase);
@@ -134,7 +190,7 @@ std::pair<int, int> LevelManager::closestToo()
     return std::make_pair(closestI, closestJ);
 }
 
-float LevelManager::calculateDistance(gameObject* obj1 , gameObject* obj2) 
+float LevelManager::calculateDistance(gameObject* obj1, gameObject* obj2)
 {
     float dx = obj1->getX() - obj2->getX();
     float dy = obj1->getY() - obj2->getY();

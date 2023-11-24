@@ -50,16 +50,64 @@ void WindowManager::drawPause(LevelManager myLevel, TextManager myText)
     WindowManager::getInstance().getRenderWindow().clear();
     myLevel.drawLevel();
     myText.drawText();
- 
+
     sf::RectangleShape rect(sf::Vector2f(200, 100));
     rect.setFillColor(sf::Color::Transparent);
     rect.setOutlineThickness(8);
     rect.setOutlineColor(sf::Color::White);
     rect.setPosition((WindowManager::getInstance().getRenderWindow().getSize().x - rect.getGlobalBounds().width) / 2, (WindowManager::getInstance().getRenderWindow().getSize().y - rect.getGlobalBounds().height) / 2);
-    
+
     TextManager pause;
     pause.addText("PAUSE", (windowSize.x - 130) / 2, (windowSize.y - 90) / 2, sf::Color::White, 50);
-    
+
+    WindowManager::getInstance().getRenderWindow().draw(rect);
+    for (auto& text : pause.texts)
+    {
+        WindowManager::getInstance().getRenderWindow().draw(text);
+    }
+
+    WindowManager::getInstance().getRenderWindow().display();
+}
+
+void WindowManager::drawWin(LevelManager myLevel, TextManager myText)
+{
+    WindowManager::getInstance().getRenderWindow().clear();
+    myLevel.drawLevel();
+    myText.drawText();
+
+    sf::RectangleShape rect(sf::Vector2f(200, 100));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineThickness(8);
+    rect.setOutlineColor(sf::Color::White);
+    rect.setPosition((WindowManager::getInstance().getRenderWindow().getSize().x - rect.getGlobalBounds().width) / 2, (WindowManager::getInstance().getRenderWindow().getSize().y - rect.getGlobalBounds().height) / 2);
+
+    TextManager pause;
+    pause.addText("Win", (windowSize.x - 130) / 2, (windowSize.y - 90) / 2, sf::Color::White, 50);
+
+    WindowManager::getInstance().getRenderWindow().draw(rect);
+    for (auto& text : pause.texts)
+    {
+        WindowManager::getInstance().getRenderWindow().draw(text);
+    }
+
+    WindowManager::getInstance().getRenderWindow().display();
+}
+
+void WindowManager::drawLoose(LevelManager myLevel, TextManager myText)
+{
+    WindowManager::getInstance().getRenderWindow().clear();
+    myLevel.drawLevel();
+    myText.drawText();
+
+    sf::RectangleShape rect(sf::Vector2f(200, 100));
+    rect.setFillColor(sf::Color::Transparent);
+    rect.setOutlineThickness(8);
+    rect.setOutlineColor(sf::Color::White);
+    rect.setPosition((WindowManager::getInstance().getRenderWindow().getSize().x - rect.getGlobalBounds().width) / 2, (WindowManager::getInstance().getRenderWindow().getSize().y - rect.getGlobalBounds().height) / 2);
+
+    TextManager pause;
+    pause.addText("Loose", (windowSize.x - 130) / 2, (windowSize.y - 90) / 2, sf::Color::White, 50);
+
     WindowManager::getInstance().getRenderWindow().draw(rect);
     for (auto& text : pause.texts)
     {
@@ -85,8 +133,8 @@ void WindowManager::drawMenu()
     rect.setOutlineColor(sf::Color::Black);
     WindowManager::getInstance().getMenuWindow().draw(rect);
 
-    title.addText("Unicorn Defense", (windowSize.x - 270) / 2, (windowSize.y - 50) / 2 - 100, sf::Color::Black,50);
-    play.addText("PLAY", (windowSize.x - 50) / 2, (windowSize.y - 30) / 2 +45, sf::Color::Black,30);
+    title.addText("Unicorn Defense", (windowSize.x - 270) / 2, (windowSize.y - 50) / 2 - 100, sf::Color::Black, 50);
+    play.addText("PLAY", (windowSize.x - 50) / 2, (windowSize.y - 30) / 2 + 45, sf::Color::Black, 30);
 
     for (auto& text : title.texts)
     {

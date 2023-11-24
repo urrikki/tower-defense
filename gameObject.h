@@ -55,7 +55,7 @@ public:
     float angle;
     bool isActive;
     float damage;
-    float attackCooldown ;
+    float attackCooldown;
     float attackTimer;
     float maxlife;
     float life;
@@ -114,13 +114,13 @@ public:
 
     CollideSide sideForRebound;
 
-    bool operator==(gameObject& other) ;
+    bool operator==(gameObject& other);
 
     void manageCollide(gameObject* objectTest);
 
-    void setDamage(int damage);
+    void setDamage(float damage);
 
-    void setLife(int life);
+    void setLife(float life);
 
     void performAttack(gameObject* objectTest);
     void canAttack(float elapsedTime);

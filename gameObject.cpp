@@ -20,7 +20,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
     this->y = y;
     m_color = color;
 
-    
+
     shapeType = NoShape;
     orientationX = 0;
     orientationY = 0;
@@ -95,7 +95,7 @@ void gameObject::setPosition(float x, float y)
         this->x = x;
         this->y = y;
         shape->setPosition(x, y);
-    }   
+    }
 };
 
 void gameObject::setSizeRec(int w, int h)
@@ -186,7 +186,7 @@ void gameObject::move(float elapsedTimeF)
         float newX = x + (speed * (elapsedTimeF * orientationX));
         float newY = y + (speed * (elapsedTimeF * orientationY));
         setPosition(newX, newY);
-    }  
+    }
 }
 
 
@@ -304,7 +304,6 @@ void gameObject::manageCollide(gameObject* objectTest)
 
             OnCollisionExit(objectTest);
             bAlreadyHasCollision = false;
-            
         }
     }
 }
@@ -370,27 +369,27 @@ void gameObject::drawShape()
         if (maxlife != 0)
         {
             drawHealthBar(WindowManager::getInstance().getRenderWindow());
-        }    
+        }
     }
 };
 
-void gameObject::setDamage(int damage)
+void gameObject::setDamage(float damage)
 {
     this->damage = damage;
 }
 
-void gameObject::setLife(int maxlife) {
+void gameObject::setLife(float maxlife) {
     this->maxlife = maxlife;
 }
 
 void gameObject::performAttack(gameObject* objectTest)
-{   
+{
     if (attack == true)
     {
         objectTest->life = objectTest->life + damage;
         objectTest->getHit();
         attack = false;
-    }    
+    }
 }
 
 void gameObject::getHit()
@@ -401,10 +400,10 @@ void gameObject::getHit()
     std::cout << life;
 }
 
-void gameObject::canAttack(float elapsedTime )
+void gameObject::canAttack(float elapsedTime)
 {
     // Mettez à jour le chronomètre d'attaque
-    
+
     if (attackTimer > 0.0f) {
         attackTimer -= elapsedTime;
         if (attackTimer < 0.0f) {
@@ -413,12 +412,12 @@ void gameObject::canAttack(float elapsedTime )
     }
 
     // Votre logique de mise à jour habituelle pour le monstre ici
-    if (attackTimer == 0.0f ) {
+    if (attackTimer == 0.0f) {
         attack = true;
         attackTimer = attackCooldown;
     }
-    
-    
+
+
 }
 
 void gameObject::drawHealthBar(RenderWindow& window)
@@ -430,11 +429,11 @@ void gameObject::drawHealthBar(RenderWindow& window)
     window.draw(backgroundBar);
 
     // Calcule la longueur de la barre de vie en fonction de la vie actuelle
-    float healthPercentage = ((maxlife - life) * 100 ) / maxlife;
-    float healthBarWidth = ((w *healthPercentage) / 100);
+    float healthPercentage = ((maxlife - life) * 100) / maxlife;
+    float healthBarWidth = ((w * healthPercentage) / 100);
 
     // Dessine la barre de vie rouge représentant la vie actuelle
-    RectangleShape healthBar(Vector2f(healthBarWidth , 5));
+    RectangleShape healthBar(Vector2f(healthBarWidth, 5));
     healthBar.setPosition(x, y - 10); // Ajustez la position en conséquence
     healthBar.setFillColor(Color::Red);
     window.draw(healthBar);

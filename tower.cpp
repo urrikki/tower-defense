@@ -23,7 +23,7 @@ void tower::setFromType()
 {
     if (type == 1) // tower damage
     {
-        setDamage(2);
+        setDamage(1.25);
         setColor(sf::Color::Red);
     }
     else if (type == 2) // tower electric
@@ -39,23 +39,22 @@ void tower::setType(int type)
 }
 
 
-void tower::focusOn(gameObject * obj)
+void tower::focusOn(gameObject* obj)
 {
     if (focusOnList.empty() && obj->isActive)
     {
         focusOnList.push_back(obj);
     }
-    else 
-    {   
-        if (!focusOnList.empty())
+    else
+    {
+        if (!focusOnList.empty() && !focusOnList[0]->isActive)
         {
-            if (!focusOnList[0]->isActive)
-            {
-                focusOnList.erase(focusOnList.begin());   
-            }   
-        }  
-    } 
-    
+
+            focusOnList.erase(focusOnList.begin());
+
+        }
+    }
+
 }
 
 

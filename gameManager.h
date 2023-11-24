@@ -1,4 +1,5 @@
 #pragma once
+#include "power.h";
 #include "levelManager.h"
 #include "textManager.h"
 #include "windowManager.h"
@@ -31,6 +32,7 @@ private:
 
     int wave;
     float elapsedTime = 0.0;
+    void winORloose();
 
     bool levelFinish();
 
@@ -39,5 +41,6 @@ private:
     LevelManager myLevel;
     TextManager myText;
     AudioManager myAudio;
-    
+
+    Power myPower;
 };
