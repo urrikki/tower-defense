@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <vector>
 
+
 typedef enum CollideType
 {
     NoCollide,
