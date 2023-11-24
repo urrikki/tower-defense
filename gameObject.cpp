@@ -403,6 +403,7 @@ void gameObject::rotateTowardOrigin(float x, float y)
     float newX = this->w * x;
     float newY = this->h * y;
     shape->setOrigin(newX, newY);
+    sprite.setOrigin(newX, newY);
 }
 
 void gameObject::setRotation(float angle)
