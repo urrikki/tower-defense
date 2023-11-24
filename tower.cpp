@@ -10,10 +10,10 @@
 
 using namespace sf;
 
-tower::tower() : gameObject(70, 20, 300, 10, Color::Cyan)
+tower::tower() : gameObject(70, 20, 300, 10, "asset/tower.png", 0.4f)
 {
     type = 0;
-    setRotation(90);
+    //sprite.setRotation(90);
     rotateTowardOrigin(0.5, 0.5);
     numBall = 0;
     attackCooldown = 1.0f;

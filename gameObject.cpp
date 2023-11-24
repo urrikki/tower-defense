@@ -51,7 +51,7 @@ gameObject::gameObject(int w, int h, float x, float y, sf::Color color)
 }
 
 
-gameObject::gameObject(float r, float x, float y, sf::Color color)
+gameObject::gameObject( float r, float x, float y, sf::Color color)
 {
     this->x = x;
     this->y = y;
@@ -77,6 +77,62 @@ gameObject::gameObject(float r, float x, float y, sf::Color color)
     sideForRebound = None;
 }
 
+gameObject::gameObject(int w, int h, float x, float y, const char* path, float factorValue)
+{
+    this->w = w;
+    this->h = h;
+    this->x = x;
+    this->y = y;
+    m_color = sf::Color::Red;
+
+    
+    
+    if (!texture.loadFromFile(path))
+    {
+        std::cout << "failed" << std::endl;
+
+        system("pause");
+    }
+
+    texture.setSmooth(false);
+
+
+    shapeType = NoShape;
+    orientationX = 0;
+    orientationY = 0;
+    damage = 0;
+    speed = (0);
+    attackCooldown = 2.0f;
+    attackTimer = 0.0f;
+    maxlife = 0;
+    attack = false;
+
+
+    shape = new RectangleShape(sf::Vector2f(w, h));
+
+    sprite.setTexture(texture);
+    sprite.setScale(sf::Vector2f(sprite.getScale().x * factorValue, sprite.getScale().y * factorValue));
+    
+
+    if (this->w == this->h)
+    {
+        shapeType = Square;
+    }
+    else
+    {
+        shapeType = Rectangle;
+    }
+    
+    sprite.setPosition(x, y);
+    shape->setPosition(x, y);
+    shape->setFillColor(m_color);
+
+    Collide = NoCollide;
+    sideForRebound = None;
+    isActive = true;
+}
+
+
 
 void gameObject::setSpeed(float speed)
 {
@@ -95,6 +151,7 @@ void gameObject::setPosition(float x, float y)
         this->x = x;
         this->y = y;
         shape->setPosition(x, y);
+        sprite.setPosition(x, y);
     }
 };
 
@@ -352,12 +409,14 @@ void gameObject::rotateTowardOrigin(float x, float y)
     float newX = this->w * x;
     float newY = this->h * y;
     shape->setOrigin(newX, newY);
+    sprite.setOrigin(newX, newY);
 }
 
 void gameObject::setRotation(float angle)
 {
     this->angle = angle;
     shape->setRotation(angle);
+    sprite.setRotation(angle);
 };
 
 // --Draw
@@ -365,7 +424,17 @@ void gameObject::drawShape()
 {
     if (isActive == true)
     {
-        WindowManager::getInstance().getRenderWindow().draw(*shape);
+        if (sprite.getTexture() != NULL)
+        {
+            sprite.setTexture(texture);
+            WindowManager::getInstance().getRenderWindow().draw(sprite);
+        }
+        else
+        {
+            WindowManager::getInstance().getRenderWindow().draw(*shape);
+        }
+
+
         if (maxlife != 0)
         {
             drawHealthBar(WindowManager::getInstance().getRenderWindow());
